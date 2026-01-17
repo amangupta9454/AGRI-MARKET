@@ -70,7 +70,7 @@ const AdminDashboard = () => {
           )}
           <button
             onClick={handleLogout}
-            className="mt-4 sm:mt-6 bg-gradient-to-r from-red-600 to-red-800 text-white px-4 sm:px-6 py-2 rounded-full font-semibold shadow-xl hover:from-red-700 hover:to-red-900 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-400/50"
+            className="mt-4 sm:mt-6 bg-linear-to-r from-red-600 to-red-800 text-white px-4 sm:px-6 py-2 rounded-full font-semibold shadow-xl hover:from-red-700 hover:to-red-900 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-400/50"
           >
             Logout
           </button>
@@ -90,7 +90,7 @@ const AdminDashboard = () => {
             {/* Analytics Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
               <div className="relative group animate-slideInLeft">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-blue-800 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
                 <AnalyticsCard
                   title="Registered Farmers"
                   count={analytics.farmers}
@@ -98,7 +98,7 @@ const AdminDashboard = () => {
                 />
               </div>
               <div className="relative group animate-slideInUp">
-                <div className="absolute -inset-1 bg-gradient-to-r from-green-600 to-green-800 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                <div className="absolute -inset-1 bg-linear-to-r from-green-600 to-green-800 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
                 <AnalyticsCard
                   title="Registered Consumers"
                   count={analytics.consumers}
@@ -106,7 +106,7 @@ const AdminDashboard = () => {
                 />
               </div>
               <div className="relative group animate-slideInRight">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-800 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+                <div className="absolute -inset-1 bg-linear-to-r from-purple-600 to-purple-800 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
                 <AnalyticsCard
                   title="Product Listings"
                   count={analytics.listings}

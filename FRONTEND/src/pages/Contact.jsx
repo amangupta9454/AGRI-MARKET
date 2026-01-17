@@ -1,7 +1,7 @@
 const Contact = () => {
   return (
     <div name="contact" className="w-full text-white py-24 bg-gray-900">
-      <div className="max-w-screen-lg px-4 mx-auto">
+      <div className="max-w-5xl px-4 mx-auto">
         <div className="mb-6 text-center">
           <p className="text-white font-bold text-4xl underline hover:text-pink-500 transition-all duration-300 animate__animated animate__fadeInUp animate__delay-1s">
             Contact Me
@@ -80,7 +80,7 @@ const Contact = () => {
                 </label>
                 <textarea name="message" id="message" required placeholder="Enter your message" rows="4" className="w-full px-4 py-3 mt-2 bg-gray-100 text-gray-800 rounded-lg focus:ring-4 focus:ring-blue-400 focus:outline-none transition-transform duration-300 transform group-hover:scale-105 hover:shadow-lg animate__animated animate__pulse animate__infinite"></textarea>
               </div>
-              <button type="submit" className="w-full py-3 mt-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white font-bold text-lg rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-transform duration-300 animate__animated animate__bounceInUp animate__delay-1s hover:animate__pulse hover:animate__infinite hover:ring-4 hover:ring-blue-400">
+              <button type="submit" className="w-full py-3 mt-4 bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white font-bold text-lg rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-transform duration-300 animate__animated animate__bounceInUp animate__delay-1s hover:animate__pulse hover:animate__infinite hover:ring-4 hover:ring-blue-400">
                 Connect Me
               </button>
             </form>

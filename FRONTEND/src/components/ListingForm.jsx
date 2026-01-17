@@ -56,7 +56,7 @@ const ListingForm = ({ user }) => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="w-full max-w-6xl bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 transition-all duration-1000 hover:shadow-[0_0_60px_rgba(34,197,94,0.7)] border border-white/25 animate-slideIn">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-green-100 animate-gradientText bg-gradient-to-r from-green-200 via-emerald-300 to-teal-400 bg-clip-text ">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-green-100 animate-gradientText bg-linear-to-r from-green-200 via-emerald-300 to-teal-400 bg-clip-text ">
           Create Your Listing
         </h2>
         {error && (
@@ -161,7 +161,7 @@ const ListingForm = ({ user }) => {
               placeholder="Description"
               value={formData.description}
               onChange={handleChange}
-              className="relative w-full p-3 sm:p-4 bg-white/15 border-2 border-green-500/50 rounded-xl focus:ring-4 focus:ring-green-400/70 focus:border-green-600 transition-all duration-500 text-white placeholder-gray-200 min-h-[100px] sm:min-h-[120px] md:min-h-[140px] text-sm sm:text-base md:text-lg z-20"
+              className="relative w-full p-3 sm:p-4 bg-white/15 border-2 border-green-500/50 rounded-xl focus:ring-4 focus:ring-green-400/70 focus:border-green-600 transition-all duration-500 text-white placeholder-gray-200 min-h-25 sm:min-h-30 md:min-h-35 text-sm sm:text-base md:text-lg z-20"
               required
             />
             <div className="absolute inset-0 rounded-xl ring-1 ring-green-500/40 group-hover:ring-green-500/70 transition-all duration-500 animate-pulse z-0" />
@@ -173,7 +173,7 @@ const ListingForm = ({ user }) => {
               placeholder="Specifications"
               value={formData.specifications}
               onChange={handleChange}
-              className="relative w-full p-3 sm:p-4 bg-white/15 border-2 border-green-500/50 rounded-xl focus:ring-4 focus:ring-green-400/70 focus:border-green-600 transition-all duration-500 text-white placeholder-gray-200 min-h-[100px] sm:min-h-[120px] md:min-h-[140px] text-sm sm:text-base md:text-lg z-20"
+              className="relative w-full p-3 sm:p-4 bg-white/15 border-2 border-green-500/50 rounded-xl focus:ring-4 focus:ring-green-400/70 focus:border-green-600 transition-all duration-500 text-white placeholder-gray-200 min-h-25 sm:min-h-30 md:min-h-35 text-sm sm:text-base md:text-lg z-20"
               required
             />
             <div className="absolute inset-0 rounded-xl ring-1 ring-green-500/40 group-hover:ring-green-500/70 transition-all duration-500 animate-pulse z-0" />
@@ -194,7 +194,7 @@ const ListingForm = ({ user }) => {
           <div className="md:col-span-2 mt-4 sm:mt-5 md:mt-6 z-10">
             <button
               type="submit"
-              className="relative w-full bg-gradient-to-r from-green-300 to-emerald-400 text-white p-3 sm:p-4 rounded-xl hover:from-green-400 hover:to-emerald-500 disabled:bg-green-500/50 transition-all duration-500 transform hover:scale-105 focus:ring-4 focus:ring-green-400/70 shadow-2xl hover:shadow-[0_0_40px_rgba(34,197,94,0.9)] animate-pulseButton text-sm sm:text-base md:text-lg z-20"
+              className="relative w-full bg-linear-to-r from-green-300 to-emerald-400 text-white p-3 sm:p-4 rounded-xl hover:from-green-400 hover:to-emerald-500 disabled:bg-green-500/50 transition-all duration-500 transform hover:scale-105 focus:ring-4 focus:ring-green-400/70 shadow-2xl hover:shadow-[0_0_40px_rgba(34,197,94,0.9)] animate-pulseButton text-sm sm:text-base md:text-lg z-20"
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Creating...' : 'Create Listing'}

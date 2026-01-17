@@ -11,9 +11,9 @@ const Footer = () => {
     <footer className="relative bg-black text-gray-300 pt-24 pb-14 px-6 overflow-hidden isolate">
       {/* Glowing Ambient Effects */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute w-[600px] h-[600px] top-[-100px] left-[-100px] bg-gradient-to-br from-cyan-500/30 to-purple-600/30 blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute w-[500px] h-[500px] bottom-[-100px] right-[-100px] bg-gradient-to-tr from-pink-500/20 to-yellow-300/20 blur-[100px] rounded-full animate-ping" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent opacity-[0.04]" />
+        <div className="absolute w-150 h-150 -top-25 -left-25 bg-linear-to-br from-cyan-500/30 to-purple-600/30 blur-[120px] rounded-full animate-pulse" />
+        <div className="absolute w-125 h-125 -bottom-25 -right-25 bg-linear-to-tr from-pink-500/20 to-yellow-300/20 blur-[100px] rounded-full animate-ping" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent opacity-[0.04]" />
       </div>
 
       {/* Main Grid */}
@@ -72,16 +72,16 @@ const Footer = () => {
           <h4 className="text-xl font-semibold text-green-400 mb-3">For Farmers</h4>
           <p className="text-sm mb-4">Join our network to sell your produce directly to customers and get real-time market prices.</p>
           <button onClick={scrollToTop}
-            className="group relative inline-flex items-center px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-full shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+            className="group relative inline-flex items-center px-5 py-2 bg-linear-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-full shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
             <FaArrowUp className="mr-2 group-hover:animate-bounce" />
             Back to Top
-            <span className="absolute -inset-1.5 rounded-full bg-cyan-400 blur-[12px] opacity-30 group-hover:opacity-50 transition-all duration-300 -z-10"></span>
+            <span className="absolute -inset-1.5 rounded-full bg-cyan-400 blur-md opacity-30 group-hover:opacity-50 transition-all duration-300 -z-10"></span>
           </button>
         </div>
       </div>
 
       {/* Divider */}
-      <div className="my-14 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-20 rounded-full" />
+      <div className="my-14 w-full h-1 bg-linear-to-r from-transparent via-cyan-500 to-transparent opacity-20 rounded-full" />
 
       {/* Copyright */}
       <div className="text-center text-sm text-gray-400">
@@ -92,7 +92,7 @@ const Footer = () => {
       <div className="mt-3 text-center text-sm">
         <a href="https://www.linkedin.com/in/amangupta9454" target="_blank" rel="noopener noreferrer"
           className="text-cyan-300 hover:underline transition">
-          Created by <span className="font-semibold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-[shine_12s_linear_infinite]">Code Veda</span>
+          Created by <span className="font-semibold bg-linear-to-r from-cyan-400 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-[shine_12s_linear_infinite]">Code Veda</span>
         </a>
       </div>
 

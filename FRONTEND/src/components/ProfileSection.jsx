@@ -26,24 +26,24 @@ const ProfileSection = ({ user }) => {
   }, [user, t]);
 
   if (!user) return (
-    <div className="flex items-center justify-center min-h-[200px] text-white text-lg sm:text-xl animate-pulse">
+    <div className="flex items-center justify-center min-h-50 text-white text-lg sm:text-xl animate-pulse">
       {t('profile.pleaseLogin')}
     </div>
   );
   if (loading) return (
-    <div className="flex items-center justify-center min-h-[200px]">
+    <div className="flex items-center justify-center min-h-50">
       <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-green-400"></div>
     </div>
   );
   if (error) return (
-    <div className="flex items-center justify-center min-h-[200px] text-red-400 text-lg sm:text-xl animate-pulse">
+    <div className="flex items-center justify-center min-h-50 text-red-400 text-lg sm:text-xl animate-pulse">
       {error}
     </div>
   );
 
   return (
-    <div className="backdrop-blur-2xl bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp max-w-md mx-auto">
-      <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-green-300 via-blue-300 to-yellow-300 text-transparent bg-clip-text mb-4 sm:mb-6 text-center animate-gradient">
+    <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp max-w-md mx-auto">
+      <h3 className="text-xl sm:text-2xl font-bold bg-linear-to-r from-green-300 via-blue-300 to-yellow-300 text-transparent bg-clip-text mb-4 sm:mb-6 text-center animate-gradient">
         {t('profile.title')}
       </h3>
       {profile?.profileImage ? (
@@ -55,7 +55,7 @@ const ProfileSection = ({ user }) => {
           aria-label={t('profile.imageAria')}
         />
       ) : (
-        <div className="w-24 sm:w-32 h-24 sm:h-32 rounded-full mx-auto mb-4 sm:mb-6 bg-gradient-to-br from-gray-500/50 to-gray-700/50 flex items-center justify-center text-white text-sm sm:text-base animate-pulse">
+        <div className="w-24 sm:w-32 h-24 sm:h-32 rounded-full mx-auto mb-4 sm:mb-6 bg-linear-to-br from-gray-500/50 to-gray-700/50 flex items-center justify-center text-white text-sm sm:text-base animate-pulse">
           <span>{t('profile.noImage')}</span>
         </div>
       )}

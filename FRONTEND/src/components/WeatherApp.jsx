@@ -355,7 +355,7 @@ const WeatherApp = () => {
     >
       {/* नेवबार के पीछे हेडिंग छिपने की समस्या को ठीक करने के लिए टॉप पैडिंग जोड़ा गया */}
       <div className="bg-white/10 backdrop-blur-lg p-6 sm:p-8 rounded-3xl shadow-2xl w-full max-w-5xl border border-white/20">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-yellow-400 bg-clip-text text-transparent animate-fade-in">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center bg-linear-to-r from-green-400 to-yellow-400 bg-clip-text text-transparent animate-fade-in">
           {translations[lang].heading}
         </h1>
         <div className="flex flex-col sm:flex-row justify-center gap-3 mb-6">
@@ -391,14 +391,14 @@ const WeatherApp = () => {
             <option value="imperial">{translations[lang].fahrenheit}</option>
           </select>
           <button
-            className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-5 py-3 rounded-full font-medium hover:from-green-600 hover:to-teal-600 transition-all duration-300 shadow-md flex items-center justify-center disabled:opacity-50"
+            className="bg-linear-to-r from-green-500 to-teal-500 text-white px-5 py-3 rounded-full font-medium hover:from-green-600 hover:to-teal-600 transition-all duration-300 shadow-md flex items-center justify-center disabled:opacity-50"
             onClick={() => getWeather(location)}
             disabled={loading || !location}
           >
             <FaSearchLocation className="mr-2" /> {translations[lang].search}
           </button>
           <button
-            className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-3 rounded-full font-medium hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 shadow-md flex items-center justify-center disabled:opacity-50"
+            className="bg-linear-to-r from-blue-500 to-indigo-500 text-white px-5 py-3 rounded-full font-medium hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 shadow-md flex items-center justify-center disabled:opacity-50"
             onClick={getWeatherByGeolocation}
             disabled={loading}
           >

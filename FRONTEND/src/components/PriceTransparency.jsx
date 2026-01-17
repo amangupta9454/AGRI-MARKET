@@ -351,7 +351,7 @@ const PriceTransparency = () => {
                   role="grid"
                   aria-label={t('priceTransparency.title')}
                 >
-                  <thead className="bg-gradient-to-r from-teal-600 to-teal-700 text-white">
+                  <thead className="bg-linear-to-r from-teal-600 to-teal-700 text-white">
                     <tr className="sticky-header">
                       {[
                         { key: 'state', label: t('priceTransparency.state') },

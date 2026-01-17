@@ -157,7 +157,7 @@ const UserManagement = ({ token }) => {
             {consumers.map((consumer) => (
               <tr key={consumer._id}>
                 <td className="p-2 border">{consumer.name}</td>
-                <td className="p-2 border max-w-[150px] overflow-x-auto whitespace-nowrap text-ellipsis overflow-hidden  ">{consumer.email}</td>
+                <td className="p-2 border max-w-37.5 overflow-x-auto whitespace-nowrap text-ellipsis overflow-hidden  ">{consumer.email}</td>
                 <td className="p-2 border">{consumer.status}</td>
                 <td className="p-2 border space-x-2">
                   {consumer.status === 'active' ? (

@@ -59,23 +59,23 @@ const Login = ({ setUser }) => {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden" style={{ backgroundImage: `url(${bgImage})` }}>
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/70 via-teal-800/70 to-indigo-900/70 animate-[gradient-x_15s_ease_infinite] bg-[length:200%_200%] z-0"></div>
+      <div className="absolute inset-0 bg-linear-to-r from-indigo-900/70 via-teal-800/70 to-indigo-900/70 animate-[gradient-x_15s_ease_infinite] bg-size-[200%_200%] z-0"></div>
       <div className="absolute inset-0 z-0">
         <div className="absolute w-2 h-2 bg-teal-300/50 rounded-full animate-[particle_10s_linear_infinite] top-10 left-20"></div>
         <div className="absolute w-3 h-3 bg-blue-400/50 rounded-full animate-[particle_12s_linear_infinite] top-40 right-30"></div>
         <div className="absolute w-2 h-2 bg-teal-300/50 rounded-full animate-[particle_8s_linear_infinite] bottom-20 left-40"></div>
       </div>
       
-      <div className="relative bg-gradient-to-br from-indigo-900/90 to-teal-900/90 backdrop-blur-md p-12 sm:p-12 md:p-14 rounded-3xl shadow-xl w-full max-w-sm sm:max-w-md md:max-w-lg mx-auto border border-teal-400/30 hover:border-teal-400/50 transition-all duration-500 animate-[wave_0.6s_ease-out] z-10 before:absolute before:inset-0 before:rounded-3xl before:border-2 before:border-transparent before:animate-[rotate-border_3s_linear_infinite] before:-m-1">
+      <div className="relative bg-linear-to-br from-indigo-900/90 to-teal-900/90 backdrop-blur-md p-12 sm:p-12 md:p-14 rounded-3xl shadow-xl w-full max-w-sm sm:max-w-md md:max-w-lg mx-auto border border-teal-400/30 hover:border-teal-400/50 transition-all duration-500 animate-[wave_0.6s_ease-out] z-10 before:absolute before:inset-0 before:rounded-3xl before:border-2 before:border-transparent before:animate-[rotate-border_3s_linear_infinite] before:-m-1">
         {!forgotPassword ? (
           <>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-300 animate-[fade-in_0.5s_ease-out] [text-shadow:0_2px_4px_rgba(0,0,0,0.3)]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-6 text-center bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-teal-300 animate-[fade-in_0.5s_ease-out] [text-shadow:0_2px_4px_rgba(0,0,0,0.3)]">
               Welcome Back
             </h2>
             {error && (
               <div
                 id="error-message"
-                className="bg-red-600/20 text-red-100 p-3 sm:p-4 rounded-xl mb-6 flex justify-between items-center border border-red-500/50 shadow-[0_0_12px_rgba(239,68,68,0.6)] animate-[pulse-glow_2s_ease_infinite] break-words"
+                className="bg-red-600/20 text-red-100 p-3 sm:p-4 rounded-xl mb-6 flex justify-between items-center border border-red-500/50 shadow-[0_0_12px_rgba(239,68,68,0.6)] animate-[pulse-glow_2s_ease_infinite] wrap-break-word"
                 role="alert"
                 aria-describedby="error-message"
               >
@@ -95,7 +95,7 @@ const Login = ({ setUser }) => {
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-400/10 hover:to-teal-300/10"
+                  className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-linear-to-r hover:from-blue-400/10 hover:to-teal-300/10"
                   placeholder="Email"
                   required
                   aria-label="Email address"
@@ -129,7 +129,7 @@ const Login = ({ setUser }) => {
                   id="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-400/10 hover:to-teal-300/10"
+                  className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-linear-to-r hover:from-blue-400/10 hover:to-teal-300/10"
                   placeholder="Password"
                   required
                   aria-label="Password"
@@ -158,7 +158,7 @@ const Login = ({ setUser }) => {
               </div>
               <button
                 type="submit"
-                className="relative w-full bg-gradient-to-r from-blue-500 to-teal-500 text-white p-3 sm:p-4 rounded-xl hover:from-blue-600 hover:to-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-300/50 transition-all duration-300 animate-[pulse-slow_3s_ease_infinite] shadow-[0_0_15px_rgba(45,212,191,0.5)] hover:shadow-[0_0_25px_rgba(45,212,191,0.7)]"
+                className="relative w-full bg-linear-to-r from-blue-500 to-teal-500 text-white p-3 sm:p-4 rounded-xl hover:from-blue-600 hover:to-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-300/50 transition-all duration-300 animate-[pulse-slow_3s_ease_infinite] shadow-[0_0_15px_rgba(45,212,191,0.5)] hover:shadow-[0_0_25px_rgba(45,212,191,0.7)]"
               >
                 Sign In
               </button>
@@ -167,7 +167,7 @@ const Login = ({ setUser }) => {
               Not registered?{' '}
               <Link
                 to="/register"
-                className="relative text-teal-300 hover:text-teal-200 font-medium after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-400 after:to-teal-300 after:transition-all after:duration-300 hover:after:w-full hover:animate-[bounce_0.3s_ease]"
+                className="relative text-teal-300 hover:text-teal-200 font-medium after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-linear-to-r after:from-blue-400 after:to-teal-300 after:transition-all after:duration-300 hover:after:w-full hover:animate-[bounce_0.3s_ease]"
               >
                 Create an account
               </Link>
@@ -175,7 +175,7 @@ const Login = ({ setUser }) => {
             <p className="mt-2 text-center text-gray-200 text-sm sm:text-base animate-[fade-in_0.5s_ease-out_0.3s_both] [text-shadow:0_1px_2px_rgba(0,0,0,0.2)]">
               <button
                 onClick={() => setForgotPassword(true)}
-                className="relative text-teal-300 hover:text-teal-200 font-medium after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-400 after:to-teal-300 after:transition-all after:duration-300 hover:after:w-full hover:animate-[bounce_0.3s_ease]"
+                className="relative text-teal-300 hover:text-teal-200 font-medium after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-linear-to-r after:from-blue-400 after:to-teal-300 after:transition-all after:duration-300 hover:after:w-full hover:animate-[bounce_0.3s_ease]"
               >
                 Forgot Password?
               </button>
@@ -183,13 +183,13 @@ const Login = ({ setUser }) => {
           </>
         ) : (
           <>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-teal-300 animate-[fade-in_0.5s_ease-out] [text-shadow:0_2px_4px_rgba(0,0,0,0.3)]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-6 text-center bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-teal-300 animate-[fade-in_0.5s_ease-out] [text-shadow:0_2px_4px_rgba(0,0,0,0.3)]">
               Reset Password
             </h2>
             {error && (
               <div
                 id="error-message"
-                className="bg-red-600/20 text-red-100 p-3 sm:p-4 rounded-xl mb-6 flex justify-between items-center border border-red-500/50 shadow-[0_0_12px_rgba(239,68,68,0.6)] animate-[pulse-glow_2s_ease_infinite] break-words"
+                className="bg-red-600/20 text-red-100 p-3 sm:p-4 rounded-xl mb-6 flex justify-between items-center border border-red-500/50 shadow-[0_0_12px_rgba(239,68,68,0.6)] animate-[pulse-glow_2s_ease_infinite] wrap-break-word"
                 role="alert"
                 aria-describedby="error-message"
               >
@@ -210,7 +210,7 @@ const Login = ({ setUser }) => {
                     id="reset-email"
                     value={resetData.email}
                     onChange={handleResetChange}
-                    className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-400/10 hover:to-teal-300/10"
+                    className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-linear-to-r hover:from-blue-400/10 hover:to-teal-300/10"
                     placeholder="Email"
                     required
                     aria-label="Email address for password reset"
@@ -246,7 +246,7 @@ const Login = ({ setUser }) => {
                     id="otp"
                     value={resetData.otp}
                     onChange={handleResetChange}
-                    className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-400/10 hover:to-teal-300/10"
+                    className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-linear-to-r hover:from-blue-400/10 hover:to-teal-300/10"
                     placeholder="OTP"
                     required
                     aria-label="OTP for password reset"
@@ -267,7 +267,7 @@ const Login = ({ setUser }) => {
                     id="new-password"
                     value={resetData.newPassword}
                     onChange={handleResetChange}
-                    className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-400/10 hover:to-teal-300/10"
+                    className="w-full p-3 pt-6 bg-transparent border-b-2 border-teal-400/50 rounded-none focus:border-transparent text-white placeholder-transparent peer focus:outline-none focus:ring-0 focus:shadow-[0_0_10px_rgba(45,212,191,0.6)] transition-all duration-300 hover:bg-linear-to-r hover:from-blue-400/10 hover:to-teal-300/10"
                     placeholder="New Password"
                     required
                     aria-label="New Password"
@@ -297,7 +297,7 @@ const Login = ({ setUser }) => {
               )}
               <button
                 type="submit"
-                className="relative w-full bg-gradient-to-r from-blue-500 to-teal-500 text-white p-3 sm:p-4 rounded-xl hover:from-blue-600 hover:to-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-300/50 transition-all duration-300 animate-[pulse-slow_3s_ease_infinite] shadow-[0_0_15px_rgba(45,212,191,0.5)] hover:shadow-[0_0_25px_rgba(45,212,191,0.7)]"
+                className="relative w-full bg-linear-to-r from-blue-500 to-teal-500 text-white p-3 sm:p-4 rounded-xl hover:from-blue-600 hover:to-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-300/50 transition-all duration-300 animate-[pulse-slow_3s_ease_infinite] shadow-[0_0_15px_rgba(45,212,191,0.5)] hover:shadow-[0_0_25px_rgba(45,212,191,0.7)]"
               >
                 {resetStep === 'email' ? 'Send OTP' : resetStep === 'otp' ? 'Verify OTP' : 'Reset Password'}
               </button>
@@ -310,7 +310,7 @@ const Login = ({ setUser }) => {
                   setResetData({ email: '', otp: '', newPassword: '' });
                   setError(null);
                 }}
-                className="relative text-teal-300 hover:text-teal-200 font-medium after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-blue-400 after:to-teal-300 after:transition-all after:duration-300 hover:after:w-full hover:animate-[bounce_0.3s_ease]"
+                className="relative text-teal-300 hover:text-teal-200 font-medium after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-linear-to-r after:from-blue-400 after:to-teal-300 after:transition-all after:duration-300 hover:after:w-full hover:animate-[bounce_0.3s_ease]"
               >
                 Back to Login
               </button>

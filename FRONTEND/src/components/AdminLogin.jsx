@@ -72,9 +72,9 @@ const handleLogin = async (email, password) => {
     >
       <div className="relative bg-transparent bg-opacity-20 backdrop-blur-3xl p-6 sm:p-10 rounded-3xl shadow-[0_0_100px_rgba(0,0,0,0.9)] w-full max-w-lg sm:max-w-md border border-cyan-600 border-opacity-20 transition-all duration-700 hover:shadow-[0_0_120px_rgba(0,0,0,1)] transform hover:-translate-y-4 mx-4">
         {/* Enhanced Glassmorphism Overlay with Subtle Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-600/6 to-gray-900/4 rounded-3xl pointer-events-none animate-gradient"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-gray-600/6 to-gray-900/4 rounded-3xl pointer-events-none animate-gradient"></div>
 
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-yellow-300 to-red-400   tracking-tight">Admin Login</h2>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-8 text-transparent bg-clip-text bg-linear-to-r from-yellow-500 via-yellow-300 to-red-400   tracking-tight">Admin Login</h2>
         {error && (
           <p className="text-red-200 text-center mb-6 bg-red-900 bg-opacity-50 p-3 rounded-lg animate-shake shadow-inner text-sm sm:text-base font-medium">{error}</p>
         )}
@@ -90,7 +90,7 @@ const handleLogin = async (email, password) => {
                 placeholder="Enter your email"
                 required
               />
-              <div className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-blue-300 to-purple-300 rounded-l-xl transition-all duration-300 group-hover:w-2"></div>
+              <div className="absolute inset-y-0 left-0 w-1.5 bg-linear-to-b from-blue-300 to-purple-300 rounded-l-xl transition-all duration-300 group-hover:w-2"></div>
             </div>
             <div className="relative group">
               <label className="block text-sm sm:text-base font-medium text-gray-50 tracking-wide transition-colors duration-300 group-hover:text-blue-200">Password</label>
@@ -109,14 +109,14 @@ const handleLogin = async (email, password) => {
               >
                 {showPassword ? <AiOutlineEyeInvisible size={20} className="sm:w-6 sm:h-6" /> : <AiOutlineEye size={20} className="sm:w-6 sm:h-6" />}
               </button>
-              <div className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-blue-300 to-purple-300 rounded-l-xl transition-all duration-300 group-hover:w-2"></div>
+              <div className="absolute inset-y-0 left-0 w-1.5 bg-linear-to-b from-blue-300 to-purple-300 rounded-l-xl transition-all duration-300 group-hover:w-2"></div>
             </div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-400 to-purple-400 text-white p-3 sm:p-4 rounded-xl hover:from-blue-500 hover:to-purple-500 transform hover:scale-105 transition-all duration-500 shadow-2xl hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] relative overflow-hidden group"
+              className="w-full bg-linear-to-r from-blue-400 to-purple-400 text-white p-3 sm:p-4 rounded-xl hover:from-blue-500 hover:to-purple-500 transform hover:scale-105 transition-all duration-500 shadow-2xl hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] relative overflow-hidden group"
             >
               <span className="relative z-10 text-sm sm:text-base font-semibold tracking-wide">Send OTP</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-blue-200 to-purple-200 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
             </button>
           </form>
         ) : (
@@ -131,21 +131,21 @@ const handleLogin = async (email, password) => {
                 placeholder="Enter the OTP"
                 required
               />
-              <div className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-blue-300 to-purple-300 rounded-l-xl transition-all duration-300 group-hover:w-2"></div>
+              <div className="absolute inset-y-0 left-0 w-1.5 bg-linear-to-b from-blue-300 to-purple-300 rounded-l-xl transition-all duration-300 group-hover:w-2"></div>
             </div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-400 to-purple-400 text-white p-3 sm:p-4 rounded-xl hover:from-blue-500 hover:to-purple-500 transform hover:scale-105 transition-all duration-500 shadow-2xl hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] relative overflow-hidden group"
+              className="w-full bg-linear-to-r from-blue-400 to-purple-400 text-white p-3 sm:p-4 rounded-xl hover:from-blue-500 hover:to-purple-500 transform hover:scale-105 transition-all duration-500 shadow-2xl hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] relative overflow-hidden group"
             >
               <span className="relative z-10 text-sm sm:text-base font-semibold tracking-wide">Verify OTP</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-blue-200 to-purple-200 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
             </button>
           </form>
         )}
       </div>
 
       {/* Custom Tailwind Animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes glow {
           0%, 100% { text-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
           50% { text-shadow: 0 0 40px rgba(59, 130, 246, 1), 0 0 50px rgba(147, 51, 234, 0.8); }

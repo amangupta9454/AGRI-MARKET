@@ -27,7 +27,7 @@ const Product = () => {
   return (
     <div 
       className="container mx-auto p-4 sm:p-6 md:p-8 min-h-screen relative overflow-hidden 
-        bg-gradient-to-br from-gray-900 via-emerald-900 to-gray-800"
+        bg-linear-to-br from-gray-900 via-emerald-900 to-gray-800"
       style={{
         backgroundImage: `url(${BackgroundImage1}), url(${BackgroundImage2})`,
         backgroundPosition: 'left top, right bottom',
@@ -37,11 +37,11 @@ const Product = () => {
       }}
     >
       {/* Subtle animated overlay for depth, non-interactive */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent 
+      <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent 
         animate-pulse-slow z-0 pointer-events-none"></div>
 
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold m-16 lg:m-20 sm:m-20 md:mt-28 text-center 
-        text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 
+        text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-cyan-400 
         relative z-10 tracking-tight drop-shadow-2xl transform 
         hover:scale-110 transition-all duration-500 ease-out select-text">
         Explore Our Products
@@ -79,7 +79,7 @@ const Product = () => {
               className="group relative transform hover:scale-105 
                 transition-all duration-500 ease-out rounded-xl overflow-hidden animate-slide-up"
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/50 
+              <div className="absolute inset-0 bg-linear-to-t from-emerald-900/50 
                 to-transparent opacity-0 group-hover:opacity-100 transition-opacity 
                 duration-300 z-10 pointer-events-none"></div>
               <ProductCard product={product} />

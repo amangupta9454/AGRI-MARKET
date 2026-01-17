@@ -680,7 +680,7 @@ Use emojis, bullet points, and clear headings to make information easily digesti
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 py-6 px-4 pt-24">
+    <div className="min-h-screen bg-linear-to-br from-green-50 via-blue-50 to-indigo-50 py-6 px-4 pt-24">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-3xl shadow-2xl p-8 mb-8 border border-green-100">
@@ -997,7 +997,7 @@ Use emojis, bullet points, and clear headings to make information easily digesti
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-12 py-5 rounded-2xl font-bold text-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-w-80 relative overflow-hidden"
+                className="bg-linear-to-r from-green-600 to-blue-600 text-white px-12 py-5 rounded-2xl font-bold text-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-w-80 relative overflow-hidden"
               >
                 {loading ? (
                   <div className="flex items-center justify-center gap-3">
@@ -1018,7 +1018,7 @@ Use emojis, bullet points, and clear headings to make information easily digesti
         {/* Results */}
         {result && (
           <div className="bg-white rounded-3xl shadow-2xl border border-green-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white p-6">
+            <div className="bg-linear-to-r from-green-600 to-blue-600 text-white p-6">
               <h2 className="text-3xl font-bold flex items-center gap-3">
                 <Leaf className="w-8 h-8" />
                 {t.aiRecommendations}

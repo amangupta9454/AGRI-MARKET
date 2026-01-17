@@ -188,10 +188,10 @@ const FarmerDashboard = ({ user }) => {
         <div className="particle particle-4"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 flex-grow relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 grow relative z-10">
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-center mt-4 sm:mt-6 mb-8 sm:mb-10 lg:mb-12 backdrop-blur-2xl bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 shadow-2xl animate-fadeIn border border-green-300/30 hover:bg-green-500/30 transition-all duration-500">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-green-300 via-blue-300 to-yellow-300 text-transparent bg-clip-text mb-4 sm:mb-0 animate-gradient">
+        <div className="flex flex-col sm:flex-row justify-between items-center mt-4 sm:mt-6 mb-8 sm:mb-10 lg:mb-12 backdrop-blur-2xl bg-linear-to-r from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 shadow-2xl animate-fadeIn border border-green-300/30 hover:bg-green-500/30 transition-all duration-500">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold bg-linear-to-r from-green-300 via-blue-300 to-yellow-300 text-transparent bg-clip-text mb-4 sm:mb-0 animate-gradient">
             {t('farmerDashboard')}
           </h2>
           <select
@@ -211,12 +211,12 @@ const FarmerDashboard = ({ user }) => {
         </div>
 
         {/* Profile Section */}
-        <div className="backdrop-blur-2xl bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30">
+        <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30">
           <ProfileSection user={user} />
         </div>
 
         {/* Orders Section */}
-        <div className="backdrop-blur-2xl bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '100ms' }}>
+        <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '100ms' }}>
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{t('myOrders')}</h3>
           {!Array.isArray(orders) || orders.length === 0 ? (
             <p className="text-yellow-200 text-sm sm:text-base">{t('noOrders')}</p>
@@ -225,7 +225,7 @@ const FarmerDashboard = ({ user }) => {
               {orders.map((order, index) => (
                 <div
                   key={order._id}
-                  className="backdrop-blur-3xl bg-gradient-to-br from-green-500/25 to-blue-500/25 rounded-2xl p-3 sm:p-4 lg:p-5 shadow-[0_4px_20px_rgba(34,197,94,0.4)] border border-green-300/30 transform transition-all hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(34,197,94,0.6)] animate-bounceIn"
+                  className="backdrop-blur-3xl bg-linear-to-br from-green-500/25 to-blue-500/25 rounded-2xl p-3 sm:p-4 lg:p-5 shadow-[0_4px_20px_rgba(34,197,94,0.4)] border border-green-300/30 transform transition-all hover:scale-[1.03] hover:shadow-[0_0_25px_rgba(34,197,94,0.6)] animate-bounceIn"
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
                   <div className="space-y-2 sm:space-y-3 text-center sm:text-left">
@@ -295,7 +295,7 @@ const FarmerDashboard = ({ user }) => {
         </div>
 
         {/* Earnings Dashboard */}
-        <div className="backdrop-blur-2xl bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '200ms' }}>
+        <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '200ms' }}>
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{t('earningsDashboard')}</h3>
           
           <p className="text-base sm:text-lg font-medium text-yellow-200 mb-4">
@@ -316,7 +316,7 @@ const FarmerDashboard = ({ user }) => {
         </div>
 
         {/* UPI Linking & Withdrawal */}
-        <div className="backdrop-blur-2xl bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '300ms' }}>
+        <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '300ms' }}>
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{t('withdrawFunds')}</h3>
           <form onSubmit={handleUpiSubmit} className="space-y-4 mb-4">
             <div className="relative">
@@ -335,7 +335,7 @@ const FarmerDashboard = ({ user }) => {
             </div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white p-3 sm:p-4 rounded-lg shadow-lg hover:from-blue-700 hover:to-green-700 focus:ring-2 focus:ring-yellow-300 transition-all duration-300 transform hover:scale-105 relative overflow-hidden group text-sm sm:text-base"
+              className="w-full bg-linear-to-r from-blue-600 to-green-600 text-white p-3 sm:p-4 rounded-lg shadow-lg hover:from-blue-700 hover:to-green-700 focus:ring-2 focus:ring-yellow-300 transition-all duration-300 transform hover:scale-105 relative overflow-hidden group text-sm sm:text-base"
             >
               <span className="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300 origin-center rounded-full"></span>
               <span className="relative">{t('linkUpi')}</span>
@@ -358,7 +358,7 @@ const FarmerDashboard = ({ user }) => {
             </div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-green-600 to-yellow-600 text-white p-3 sm:p-4 rounded-lg shadow-lg hover:from-green-700 hover:to-yellow-700 focus:ring-2 focus:ring-yellow-300 transition-all duration-300 transform hover:scale-105 relative overflow-hidden group text-sm sm:text-base"
+              className="w-full bg-linear-to-r from-green-600 to-yellow-600 text-white p-3 sm:p-4 rounded-lg shadow-lg hover:from-green-700 hover:to-yellow-700 focus:ring-2 focus:ring-yellow-300 transition-all duration-300 transform hover:scale-105 relative overflow-hidden group text-sm sm:text-base"
             >
               <span className="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300 origin-center rounded-full"></span>
               <span className="relative">{t('requestWithdrawal')}</span>
@@ -367,11 +367,11 @@ const FarmerDashboard = ({ user }) => {
         </div>
 
         {/* Listings Section */}
-        <div className="backdrop-blur-2xl bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '400ms' }}>
+        <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '400ms' }}>
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{t('myListings')}</h3>
           <Link
             to="/listing/new"
-            className="mb-4 inline-block bg-gradient-to-r from-green-600 to-yellow-600 text-white p-3 sm:p-4 rounded-lg shadow-lg hover:from-green-700 hover:to-yellow-700 focus:ring-2 focus:ring-yellow-300 transition-all duration-300 transform hover:scale-105 relative overflow-hidden group text-sm sm:text-base"
+            className="mb-4 inline-block bg-linear-to-r from-green-600 to-yellow-600 text-white p-3 sm:p-4 rounded-lg shadow-lg hover:from-green-700 hover:to-yellow-700 focus:ring-2 focus:ring-yellow-300 transition-all duration-300 transform hover:scale-105 relative overflow-hidden group text-sm sm:text-base"
           >
             <span className="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300 origin-center rounded-full"></span>
             <span className="relative">{t('createNewListing')}</span>

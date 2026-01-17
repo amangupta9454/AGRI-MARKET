@@ -101,7 +101,7 @@ const Home = () => {
               </div>
             ))}
           </Carousel>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent z-10" />
         </div>
         <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-6 py-36">
           <div className="bg-gray-800/40 p-8 md:p-12 rounded-xl max-w-3xl">
@@ -243,7 +243,7 @@ const Home = () => {
         
         {/* Collaboration Section */}
         <section className="relative overflow-hidden rounded-[40px] mx-auto mt-16 w-full max-w-6xl px-8 py-14 transition-transform duration-300 hover:scale-[1.01] group shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-600/60 to-gray-800/60 backdrop-blur-sm border border-white/20 rounded-[40px] z-0" />
+          <div className="absolute inset-0 bg-linear-to-br from-gray-600/60 to-gray-800/60 backdrop-blur-sm border border-white/20 rounded-[40px] z-0" />
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between space-y-8 lg:space-y-0 lg:space-x-8">
             <div className="text-center lg:text-left flex-1">
               <h2 className="text-4xl font-extrabold text-white tracking-tight leading-snug mb-4 group-hover:text-cyan-400 transition-colors duration-300 drop-shadow-lg">
