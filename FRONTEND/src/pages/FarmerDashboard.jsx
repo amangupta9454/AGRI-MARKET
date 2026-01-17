@@ -28,6 +28,7 @@ const FarmerDashboard = ({ user }) => {
       const [listingsData, ordersData, earningsData] = await Promise.all([
         getListings(),
         getOrders(localStorage.getItem('token')),
+        getEarnings(localStorage.getItem('token')),   // ← just add this
       ]);
       console.log('Orders Data:', ordersData); // Debug API response
       setListings(listingsData.data.filter((listing) => listing?.farmer?._id === user.id) || []);
