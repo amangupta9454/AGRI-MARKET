@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getListings, getOrders, deleteListing, acceptOrder, rejectOrder } from '../utils/api';
+import { getListings, getOrders, deleteListing, acceptOrder, rejectOrder , getEarnings} from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import ProfileSection from '../components/ProfileSection';
 import { Line } from 'react-chartjs-2';
@@ -22,28 +22,67 @@ const FarmerDashboard = ({ user }) => {
   const [loading, setLoading] = useState(true);
   const [rejectionMessage, setRejectionMessage] = useState({});
 
+  // const fetchData = async () => {
+  //   if (!user) return;
+  //   try {
+  //     const [listingsData, ordersData, earningsData] = await Promise.all([
+  //       getListings(),
+  //       getOrders(localStorage.getItem('token')),
+  //       getEarnings(token),
+  //     ]);
+  //     console.log('Orders Data:', ordersData); // Debug API response
+  //     setListings(listingsData.data.filter((listing) => listing?.farmer?._id === user.id) || []);
+  //     // Ensure ordersData is an array
+  //     const ordersArray = Array.isArray(ordersData) ? ordersData : [];
+  //     setOrders(ordersArray);
+  //     setEarnings(earningsData.data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //     setError(error.response?.data?.message || t('error.fetchingData'));
+  //     setOrders([]); // Reset to empty array on error
+  //     setLoading(false);
+  //   }
+  // };
   const fetchData = async () => {
-    if (!user) return;
-    try {
-      const [listingsData, ordersData, earningsData] = await Promise.all([
-        getListings(),
-        getOrders(localStorage.getItem('token')),
-        getEarnings(localStorage.getItem('token')),   // ← just add this
-      ]);
-      console.log('Orders Data:', ordersData); // Debug API response
-      setListings(listingsData.data.filter((listing) => listing?.farmer?._id === user.id) || []);
-      // Ensure ordersData is an array
-      const ordersArray = Array.isArray(ordersData) ? ordersData : [];
-      setOrders(ordersArray);
-      setEarnings(earningsData.data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setError(error.response?.data?.message || t('error.fetchingData'));
-      setOrders([]); // Reset to empty array on error
-      setLoading(false);
-    }
-  };
+  if (!user) return;
+  try {
+    const token = localStorage.getItem('token');
+
+    const [listingsRes, ordersRes, earningsRes] = await Promise.all([
+      getListings(),
+      getOrders(token),
+      getEarnings(token),               // Now this will work
+    ]);
+
+    console.log('Listings:', listingsRes);
+    console.log('Orders:', ordersRes);
+    console.log('Earnings:', earningsRes);  // ← Check this in console
+
+    setListings(
+      listingsRes?.data?.filter(l => l?.farmer?._id === user.id) || []
+    );
+
+    setOrders(Array.isArray(ordersRes) ? ordersRes : ordersRes?.data || []);
+
+    setEarnings(
+      earningsRes?.data || {
+        totalEarnings: 0,
+        totalOrderAmount: 0,
+        weeklyEarnings: [],
+        monthlyEarnings: []
+      }
+    );
+
+    setLoading(false);
+  } catch (err) {
+    console.error('Dashboard fetch error:', err);
+    setError(err.response?.data?.message || t('error.fetchingData'));
+    setOrders([]);
+    setEarnings({ totalEarnings: 0, totalOrderAmount: 0, weeklyEarnings: [], monthlyEarnings: [] });
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchData();
