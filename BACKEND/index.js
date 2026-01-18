@@ -1,6 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const equipmentRoutes = require('./routes/equipments');
+const rentalRoutes    = require('./routes/rentals');
+const geocodeRoutes   = require('./routes/geocode');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/users');
 const listingRoutes = require('./routes/listings');
@@ -15,7 +19,9 @@ connectDB();
 
 app.use(cors("*"));
 app.use(express.json());
-
+app.use('/api/equipments', equipmentRoutes);
+app.use('/api/rentals',    rentalRoutes);
+app.use('/api/geocode',    geocodeRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/listings', listingRoutes);
 app.use('/api/orders', orderRoutes);

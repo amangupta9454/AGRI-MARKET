@@ -45,3 +45,57 @@ export const verifyResetOtp = (data) => api.post('/users/verify-reset-otp', data
 export const resetPassword = (data) => api.post('/users/reset-password', data);
 export const getWeather = (data) => api.post('/weather', data);
 export const getPrices = (params) => api.get('/prices', { params });
+export const getEquipments = () => api.get('/equipments');
+
+export const createEquipment = (data, token) =>
+  api.post('/equipments', data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+
+export const deleteEquipment = (id, token) =>
+  api.delete(`/equipments/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+
+
+
+
+
+export const getAddressFromLatLng = (lat, lng) =>
+  api.get('/geocode/reverse', { params: { lat, lng } });
+export const createRental = (data, token) => 
+  api.post('/rentals', data, { 
+    headers: { Authorization: `Bearer ${token}` } 
+  });
+
+// Verify Razorpay payment for rental
+export const verifyRentalPayment = (data, token) => 
+  api.post('/rentals/verify-payment', data, { 
+    headers: { Authorization: `Bearer ${token}` } 
+  });
+
+// Get all rentals for current user (consumer or farmer)
+export const getRentals = async (token) => {
+  try {
+    const res = await api.get('/rentals', { 
+      headers: { Authorization: `Bearer ${token}` } 
+    });
+    return res.data;
+  } catch (error) {
+    console.error('getRentals error:', error);
+    return [];
+  }
+};
+
+// Farmer: Accept a rental request
+export const acceptRental = (data, token) => 
+  api.post('/rentals/accept', data, { 
+    headers: { Authorization: `Bearer ${token}` } 
+  });
+
+// Farmer: Reject a rental request
+export const rejectRental = (data, token) => 
+  api.post('/rentals/reject', data, { 
+    headers: { Authorization: `Bearer ${token}` } 
+  });

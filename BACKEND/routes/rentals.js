@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const { createRental, verifyPayment, getRentals, acceptRental, rejectRental } = require('../controllers/rentalController');
+const { verifyToken } = require('../middleware/auth');
+router.post('/', verifyToken, createRental);
+router.post('/verify-payment', verifyPayment);
+router.get('/', verifyToken, getRentals);
+router.post('/accept', verifyToken, acceptRental);
+router.post('/reject', verifyToken, rejectRental);
+module.exports = router;

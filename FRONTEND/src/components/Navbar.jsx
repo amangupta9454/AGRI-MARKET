@@ -39,8 +39,8 @@ const Navbar = ({ user, setUser }) => {
           <Link to="/loan" className="text-xl font-semibold hover:text-amber-400 transition">
             Loan
           </Link>
-          <Link to="/ai" className="text-xl font-semibold hover:text-amber-400 transition">
-            AI
+          <Link to="/equipment" className="text-xl font-semibold hover:text-amber-400 transition">
+            Equipement
           </Link>
           
           <Link to="/contact" className="text-xl font-semibold hover:text-amber-400 transition">
@@ -138,11 +138,11 @@ const Navbar = ({ user, setUser }) => {
           Loan
         </Link>
         <Link
-          to="/ai"
+          to="/equipment"
           className="block py-2 text-xl font-semibold hover:text-amber-400 transition"
           onClick={() => setIsMenuOpen(false)}
         >
-          AI
+          Equipement
         </Link>
         <Link
           to="/contact"

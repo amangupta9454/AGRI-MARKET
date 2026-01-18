@@ -1,0 +1,12 @@
+const express = require('express');
+const router = express.Router();
+const { createEquipment, getEquipments, getEquipmentById, deleteEquipment } = require('../controllers/equipmentController');
+const { verifyToken } = require('../middleware/auth');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+router.post('/', verifyToken, upload.single('image'), createEquipment);
+router.get('/', getEquipments);
+router.get('/:id', getEquipmentById);
+router.delete('/:id', verifyToken, deleteEquipment);
+module.exports = router;

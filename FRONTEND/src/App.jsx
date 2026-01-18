@@ -19,7 +19,7 @@ import PriceTransparency from './components/PriceTransparency';
 import AdminLogin from './components/AdminLogin';
 import Ai from './components/Ai';
 import Loan from './components/Loan';
-
+import Equipment from './pages/Equipment';
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -68,6 +68,12 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/ai" element={<Ai />} />
           <Route path="/loan" element={<Loan />} />
+          <Route 
+  path="/equipment" 
+  element={
+    user ? <Equipment user={user} /> : <Navigate to="/login" />
+  }
+/>
           <Route
             path="/farmer"
             element={
