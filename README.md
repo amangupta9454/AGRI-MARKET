@@ -19,8 +19,8 @@ AGRI is a full-stack web application that enables direct trade between farmers a
 
 <ul>
   <li><a href="#about">About the Project</a></li>
-  <li><a href="#vision">🎯 Vision & Mission</a></li>
-  <li><a href="#problem">❓ Problems We Solve</a></li>
+  <li><a href="#vision">Vision & Mission</a></li>
+  <li><a href="#problem">Problems We Solve</a></li>
   <li><a href="#structure">Folder & File Structure</a></li>
   <li><a href="#tech">Tech Stack</a></li>
   <li><a href="#dependencies">All Dependencies</a></li>
@@ -333,17 +333,104 @@ http://localhost:5173
            <li>🌍 Full multilingual support</li> 
            <li>🔗 Blockchain traceability</li>
             </ul> 
-            <hr> 
-            <h2 id="contact">📬 Contact Me</h2>
-             <ul>
-              <li><strong>Name:</strong> Aman Gupta</li>
-               <li><strong>Email:</strong>  <a href="ag0567688@gmail.com">Send me an email</a> </li>
-                <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/amangupta9454">LINKEDIN</a></li>
-                 <li><strong>GitHub:</strong> <a href="https://github.com/amangupta9454">GITHUB</a></li>
-                 <li><strong>Portfolio:</strong> <a href="http://gupta-aman-portfolio.netlify.app/">PORTFOLIO</a></li>
-                  </ul> 
-                  <hr>
-                   <h2 id="creator">👨‍💻 Created By</h2> 
-                   <p><strong>Aman Gupta</strong><br>B.Tech 2nd year Student | HIET Ghaziabad<br>Passionate about tech and sustainable agriculture 🌱</p>
-                    <p align="center">⭐ If you found this project helpful, give it a star!</p>
+<hr>
+
+<h2 id="contact">📬 Let’s Connect</h2>
+
+<p align="center" style="color:#555; font-size:15px; max-width:720px; margin:auto; line-height:1.7;">
+I’m always open to meaningful conversations around technology, startups, and AgriTech innovation.  
+If you have a collaboration idea, freelance opportunity, feedback, or just want to discuss building impactful digital products — feel free to reach out. Let’s create solutions that make a difference 🚀
+</p>
+
+<br>
+
+<ul>
+  <li><strong>👤 Name:</strong> Aman Gupta</li>
+  <li><strong>📧 Email:</strong> <a href="mailto:ag0567688@gmail.com">ag0567688@gmail.com</a> <em>(Best way to reach me for professional inquiries)</em></li>
+  <li><strong>💼 LinkedIn:</strong> <a href="https://linkedin.com/in/amangupta9454" target="_blank">linkedin.com/in/amangupta9454</a> <em>(Professional updates & networking)</em></li>
+  <li><strong>💻 GitHub:</strong> <a href="https://github.com/amangupta9454" target="_blank">github.com/amangupta9454</a> <em>(Explore my code & open-source work)</em></li>
+  <li><strong>🌐 Portfolio:</strong> <a href="http://gupta-aman-portfolio.netlify.app/" target="_blank">View Portfolio Website</a> <em>(Projects, skills & achievements)</em></li>
+</ul>
+
+<br>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Open%20to-Freelance%20%26%20Collaboration-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Domain-AgriTech%20%7C%20Rural%20Tech-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Focus-Full%20Stack%20Development-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Stack-MERN%20%7C%20Vite%20%7C%20Tailwind-informational?style=for-the-badge" />
+</p>
+
+<hr>
+
+<h2 id="creator">👨‍💻 About the Creator</h2>
+
+<p align="center" style="font-size:16px; color:#94a3b8; line-height:1.8; max-width:750px; margin:auto;">
+<strong>Aman Gupta</strong> is a passionate Full-Stack Developer dedicated to building real-world solutions that solve practical problems.  
+With a strong interest in <b>AgriTech, rural empowerment, and digital accessibility</b>, he focuses on creating platforms that bridge the gap between technology and underserved communities.
+</p>
+
+<p align="center" style="font-size:16px; color:#94a3b8; line-height:1.8; max-width:750px; margin:auto;">
+This project reflects a commitment to combining clean design, scalable architecture, and meaningful impact — using technology not just to innovate, but to empower.
+</p>
+
+<p align="center" style="font-size:14px; margin-top:10px;">
+⭐ If this project helped you, inspired you, or supported your learning, consider giving it a star on GitHub — it truly motivates further development!
+</p>
+
+<hr>
+
+<div style="font-family: Arial, sans-serif; color: #333; line-height: 1.7; margin-top: 20px;">
+    <h2 id="screenshots" style="color: #2e7d32; font-size: 32px; font-weight: bold; margin-bottom: 10px; text-align:center;">
+        📸 Platform Walkthrough
+    </h2>
+    <p style="font-size: 16px; color: #555; margin-bottom: 30px; text-align:center; max-width: 900px; margin-left:auto; margin-right:auto;">
+        Experience the powerful features of the <strong>AGRI Smart Farming Marketplace</strong> through these interface previews. The platform is crafted to simplify agricultural trade, provide real-time insights, and offer financial tools — all in a seamless,mobile-friendly environment built for farmers and buyers.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+        <div style="background: linear-gradient(145deg, #ffffff, #f3f7f4); padding: 16px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
+            <h3 style="color: #1b5e20; font-size: 20px;">🏠 Home Overview</h3>
+            <p style="font-size: 14px; color:#666;">Quick access to services, featured products, and platform highlights.</p>
+            <img src="https://res.cloudinary.com/dnmtainqq/image/upload/v1769520757/Screenshot_2026-01-27_190041_pgxwg6.png" alt="Home Page" style="width: 100%; border-radius: 10px; margin-top:10px;">
+        </div>
+        <div style="background: linear-gradient(145deg, #ffffff, #f3f7f4); padding: 16px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
+            <h3 style="color: #1b5e20; font-size: 20px;">🛒 Product Marketplace</h3>
+            <p style="font-size: 14px; color:#666;">Browse fresh produce with transparent pricing and seller information.</p>
+            <img src="https://res.cloudinary.com/dnmtainqq/image/upload/v1769520789/Screenshot_2026-01-27_190051_cwai2d.png" alt="Products Page" style="width: 100%; border-radius: 10px; margin-top:10px;">
+        </div>
+        <div style="background: linear-gradient(145deg, #ffffff, #f3f7f4); padding: 16px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
+            <h3 style="color: #1b5e20; font-size: 20px;">🌦️ Live Weather Panel</h3>
+            <p style="font-size: 14px; color:#666;">Accurate weather forecasts tailored to farming decisions.</p>
+            <img src="https://res.cloudinary.com/dnmtainqq/image/upload/v1769520793/Screenshot_2026-01-27_190113_st5bs7.png" alt="Weather Page" style="width: 100%; border-radius: 10px; margin-top:10px;">
+        </div>
+        <div style="background: linear-gradient(145deg, #ffffff, #f3f7f4); padding: 16px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
+            <h3 style="color: #1b5e20; font-size: 20px;">📊 Market Price Insights</h3>
+            <p style="font-size: 14px; color:#666;">Track price trends and ensure fair market deals.</p>
+            <img src="https://res.cloudinary.com/dnmtainqq/image/upload/v1769520801/Screenshot_2026-01-27_190123_faehlc.png" alt="Price Page" style="width: 100%; border-radius: 10px; margin-top:10px;">
+        </div>
+        <div style="background: linear-gradient(145deg, #ffffff, #f3f7f4); padding: 16px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
+            <h3 style="color: #1b5e20; font-size: 20px;">💳 Loan & EMI Tools</h3>
+            <p style="font-size: 14px; color:#666;">Smart calculator to compare loans and EMI options instantly.</p>
+            <img src="https://res.cloudinary.com/dnmtainqq/image/upload/v1769520786/Screenshot_2026-01-27_190141_nlqtvj.png" alt="Loan Calculator" style="width: 100%; border-radius: 10px; margin-top:10px;">
+        </div>
+        <div style="background: linear-gradient(145deg, #ffffff, #f3f7f4); padding: 16px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
+            <h3 style="color: #1b5e20; font-size: 20px;">🔐 Secure Login</h3>
+            <p style="font-size: 14px; color:#666;">Safe, role-based access for farmers, buyers, and admins.</p>
+            <img src="https://res.cloudinary.com/dnmtainqq/image/upload/v1769520799/Screenshot_2026-01-27_190202_b8yeqn.png" alt="Login Page" style="width: 100%; border-radius: 10px; margin-top:10px;">
+        </div>
+        <div style="background: linear-gradient(145deg, #ffffff, #f3f7f4); padding: 16px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
+            <h3 style="color: #1b5e20; font-size: 20px;">📞 Contact & Support</h3>
+            <p style="font-size: 14px; color:#666;">Easy communication channel for support and inquiries.</p>
+            <img src="https://res.cloudinary.com/dnmtainqq/image/upload/v1769520790/Screenshot_2026-01-27_190152_f4c26f.png" alt="Contact Page" style="width: 100%; border-radius: 10px; margin-top:10px;">
+        </div>
+        <div style="background: linear-gradient(145deg, #ffffff, #f3f7f4); padding: 16px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08);">
+            <h3 style="color: #1b5e20; font-size: 20px;">📋 User Dashboard</h3>
+            <p style="font-size: 14px; color:#666;">Manage listings, track orders, and monitor account activity.</p>
+            <img src="https://res.cloudinary.com/dnmtainqq/image/upload/v1769521112/Screenshot_2026-01-27_190752_jeq8zy.png" alt="Dashboard" style="width: 100%; border-radius: 10px; margin-top:10px;">
+        </div>
+    </div>
+</div>
+
+<hr>
+
 
