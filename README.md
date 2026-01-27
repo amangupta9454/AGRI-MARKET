@@ -4,7 +4,14 @@
 <p align="center" style="font-size: 16px;">
 AGRI is a full-stack web application that enables direct trade between farmers and consumers while offering weather insights, secure payments, live chat, and product transparency.
 </p>
-<li><a href="https://agrifarmio.netlify.app/">LIVE DEMO</a></li>
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Database-MongoDB-darkgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Payments-Razorpay-blueviolet?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Realtime-Socket.IO-orange?style=for-the-badge" />
+</p>
+<li><a href="https://agri-farmio.netlify.app/">LIVE DEMO</a></li>
 
 <hr>
 
@@ -12,10 +19,14 @@ AGRI is a full-stack web application that enables direct trade between farmers a
 
 <ul>
   <li><a href="#about">About the Project</a></li>
+  <li><a href="#vision">🎯 Vision & Mission</a></li>
+  <li><a href="#problem">❓ Problems We Solve</a></li>
   <li><a href="#structure">Folder & File Structure</a></li>
   <li><a href="#tech">Tech Stack</a></li>
   <li><a href="#dependencies">All Dependencies</a></li>
   <li><a href="#setup">How to Use This Project</a></li>
+  <li><a href="#env">Environment Variable</a></li>
+  <li><a href="#scripts">Environment Variable</a></li>
   <li><a href="#features">Key Features</a></li>
   <li><a href="#enhancements">Future Enhancements</a></li>
   <li><a href="#contact">Contact Me</a></li>
@@ -38,101 +49,150 @@ AGRI provides a solution to agricultural inefficiencies by bridging the digital 
 </ul>
 
 <hr>
+<h2 id="vision">🎯 Vision & Mission</h2>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Vision</th>
+    <td>
+      To build a transparent and technology-driven agricultural ecosystem where farmers and consumers are directly connected, ensuring fair pricing, better access to markets, and sustainable rural growth.
+    </td>
+  </tr>
+  <tr>
+    <th>Mission</th>
+    <td>
+      To provide a smart digital marketplace that simplifies buying and selling of agricultural products, offers real-time insights like weather and price trends, and delivers secure, seamless transactions for all users.
+    </td>
+  </tr>
+</table>
+
+<hr>
+<h2 id="problem">❓ Problems We Solve</h2>
+
+<ul>
+  <li>Farmers often depend on middlemen and do not receive fair prices for their produce</li>
+  <li>Consumers lack transparency about product origin, quality, and pricing</li>
+  <li>Rural sellers have limited access to digital marketplaces and modern tools</li>
+  <li>Market price information is scattered and difficult to understand</li>
+  <li>Weather and crop-related insights are not easily accessible in one place</li>
+  <li>Traditional agricultural trade lacks secure and convenient online payment systems</li>
+</ul>
+
+<hr>
+
+
 
 <h2 id="structure">🗂️ Folder & File Structure</h2>
 
 <pre>
-AGRI/
-├── BACKEND/
-│   ├── .env
-│   ├── .gitignore
-│   ├── cronJob.js
-│   ├── initAdmin.js
-│   ├── package.json
-│   ├── package-lock.json
-│   ├── server.js
-│   ├── config/
+AGRI-FARMIO
+│
+├── BACKEND
+│   ├── config
 │   │   └── db.js
-│   ├── controllers/
+│   │
+│   ├── controllers
 │   │   ├── adminController.js
-│   │   ├── chatController.js
+│   │   ├── equipmentController.js
+│   │   ├── geocodeController.js
 │   │   ├── listingController.js
 │   │   ├── orderController.js
 │   │   ├── priceController.js
+│   │   ├── rentalController.js
 │   │   └── userController.js
-│   ├── middleware/
+│   │
+│   ├── middleware
 │   │   ├── auth.js
 │   │   └── upload.js
-│   ├── models/
+│   │
+│   ├── models
 │   │   ├── admin.js
 │   │   ├── adminOtp.js
-│   │   ├── Chat.js
 │   │   ├── ConsumerDetails.js
+│   │   ├── Equipment.js
 │   │   ├── Listing.js
 │   │   ├── Order.js
 │   │   ├── Otp.js
 │   │   ├── Price.js
+│   │   ├── Rental.js
 │   │   ├── ResetOtp.js
-│   │   ├── User.js
-│   │   └── Withdrawal.js
-│   ├── routes/
+│   │   └── User.js
+│   │
+│   ├── routes
 │   │   ├── admin.js
-│   │   ├── chats.js
+│   │   ├── equipments.js
+│   │   ├── geocode.js
 │   │   ├── listings.js
 │   │   ├── orders.js
 │   │   ├── prices.js
+│   │   ├── rentals.js
 │   │   └── users.js
-│   └── upload/
-│       └── (user images, etc.)
-├── FRONTEND/
+│   │
 │   ├── .env
 │   ├── .gitignore
+│   ├── cronJob.js
+│   ├── index.js
+│   ├── initAdmin.js
+│   ├── package.json
+│   └── package-lock.json
+│
+├── FRONTEND
+│   ├── dist
+│   ├── node_modules
+│   ├── public
+│   │
+│   ├── src
+│   │   ├── components
+│   │   │   ├── AdminLogin.jsx
+│   │   │   ├── Ai.jsx
+│   │   │   ├── AnalyticsCard.jsx
+│   │   │   ├── BuyNowForm.jsx
+│   │   │   ├── ErrorBoundary.jsx
+│   │   │   ├── ListingCard.jsx
+│   │   │   ├── ListingForm.jsx
+│   │   │   ├── Loan.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── OrderSummary.jsx
+│   │   │   ├── PriceTransparency.jsx
+│   │   │   ├── ProductCard.jsx
+│   │   │   ├── ProductPopup.jsx
+│   │   │   ├── ProfileSection.jsx
+│   │   │   ├── RecentListings.jsx
+│   │   │   ├── UserManagement.jsx
+│   │   │   └── WeatherApp.jsx
+│   │   │
+│   │   ├── pages
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── ConsumerDashboard.jsx
+│   │   │   ├── Contact.jsx
+│   │   │   ├── Equipment.jsx
+│   │   │   ├── FarmerDashboard.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Products.jsx
+│   │   │   └── Register.jsx
+│   │   │
+│   │   ├── utils
+│   │   │   ├── api.js
+│   │   │   ├── i18n.js
+│   │   │   └── razorpay.js
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   │
+│   ├── .env
+│   ├── .gitignore
+│   ├── eslint.config.js
 │   ├── index.html
 │   ├── netlify.toml
 │   ├── package.json
 │   ├── package-lock.json
 │   ├── vite.config.js
-│   ├── dist/
-│   ├── node_modules/
-│   ├── public/
-│   └── src/
-│       ├── app.jsx
-│       ├── index.css
-│       ├── main.jsx
-│       ├── assets/
-│       ├── components/
-│       │   ├── AdminLogin.jsx
-│       │   ├── Loan.jsx
-│       │   ├── AnalyticsCards.jsx
-│       │   ├── BuyNowForm.jsx
-│       │   ├── Chat.jsx
-│       │   ├── ErrorBoundary.jsx
-│       │   ├── FarmerWheather.jsx
-│       │   ├── ListingCard.jsx
-│       │   ├── ListingForm.jsx
-│       │   ├── Navbar.jsx
-│       │   ├── OrderSummary.jsx
-│       │   ├── PriceTransparency.jsx
-│       │   ├── ProductCards.jsx
-│       │   ├── ProductPopup.jsx
-│       │   ├── ProfileSection.jsx
-│       │   ├── RecentListings.jsx
-│       │   ├── UserManagement.jsx
-│       │   └── WeatherApp.jsx
-│       ├── pages/
-│       │   ├── AdminDashboard.jsx
-│       │   ├── ConsumerDashboard.jsx
-│       │   ├── Contact.jsx
-│       │   ├── FarmerDashboard.jsx
-│       │   ├── Footer.jsx
-│       │   ├── Home.jsx
-│       │   ├── Login.jsx
-│       │   ├── Products.jsx
-│       │   └── Register.jsx
-│       └── utils/
-│           ├── api.js
-│           └── i18n.js
+├── README.md
 </pre>
+
 
 <hr>
 
@@ -216,13 +276,46 @@ cd FRONTEND
 npm install
 npm run dev
 <h3>🌐 Open your browser</h3>
-```bash
 http://localhost:5173
 
 ```
+<h2 id="env">🔐 Environment Variables</h2>
+<table border="1" cellpadding="8">
+<tr><th>File</th><th>Variable</th><th>Description</th></tr>
+<tr><td>Backend</td><td>MONGODB_URI</td><td>MongoDB database connection string</td></tr>
+<tr><td>Backend</td><td>PORT</td><td>Server running port</td></tr>
+<tr><td>Backend</td><td>JWT_SECRET</td><td>Secret key for authentication tokens</td></tr>
+
+<tr><td>Backend</td><td>RAZORPAY_KEY_ID</td><td>Razorpay public key for payments</td></tr>
+<tr><td>Backend</td><td>RAZORPAY_KEY_SECRET</td><td>Razorpay secret key for payment verification</td></tr>
+
+<tr><td>Backend</td><td>EMAIL_USER</td><td>Email address used to send notifications</td></tr>
+<tr><td>Backend</td><td>EMAIL_PASS</td><td>Email app password for authentication</td></tr>
+
+<tr><td>Backend</td><td>CLOUDINARY_CLOUD_NAME</td><td>Cloudinary cloud storage name</td></tr>
+<tr><td>Backend</td><td>CLOUDINARY_API_KEY</td><td>Cloudinary API key</td></tr>
+<tr><td>Backend</td><td>CLOUDINARY_API_SECRET</td><td>Cloudinary API secret</td></tr>
+
+<tr><td>Backend</td><td>OPENWEATHER_API_KEY</td><td>API key for weather data integration</td></tr>
+<tr><td>Backend</td><td>DATA_GOV_API_KEY</td><td>Government open data API key</td></tr>
+<tr><td>Backend</td><td>GOOGLE_MAPS_API_KEY</td><td>Google Maps API key for location services</td></tr>
+
+<tr><td>Frontend</td><td>VITE_API_URL</td><td>Backend API base URL</td></tr>
+<tr><td>Frontend</td><td>VITE_RAZORPAY_KEY_ID</td><td>Razorpay public key for frontend payments</td></tr>
+<tr><td>Frontend</td><td>VITE_APP_WEATHER_API_KEY</td><td>Weather API key used in frontend</td></tr>
+<tr><td>Frontend</td><td>VITE_GEMINI_API_KEY</td><td>Gemini AI API key for smart features</td></tr>
+</table>
 
 <hr> 
-<h2 id="features">✨ Key Features</h2>
+<h2 id="scripts">📜 Available Scripts</h2>
+<table border="1" cellpadding="8">
+<tr><th>Command</th><th>Description</th></tr>
+<tr><td>npm run dev</td><td>Start development server</td></tr>
+<tr><td>npm run build</td><td>Build production files</td></tr>
+<tr><td>npm start</td><td>Run backend server</td></tr>
+</table>
+<hr>
+<h2 id="features">✨ Platform Features</h2>
  <ul>
   <li>🔐 Secure user authentication</li>
    <li>📦 Product listings with images</li>
