@@ -19,7 +19,7 @@ const Navbar = ({ user, setUser }) => {
         {/* Brand Title */}
         <h1 className="flex items-center gap-3 text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-linear-to-r from-amber-400 via-yellow-300 to-green-500 drop-shadow-[0_0_10px_rgba(255,193,7,0.6)] tracking-widest animate-pulse">
           <FaSeedling className="text-green-400 animate-bounce" />
-          FARMIO
+          AGRI-FARMIO
         </h1>
 
         {/* Desktop Links */}
