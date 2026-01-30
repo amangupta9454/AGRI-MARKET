@@ -2,7 +2,7 @@
 <h3 align="center" style="color:gray;">Connecting Farmers & Consumers through a Transparent, Tech-Driven Platform</h3>
 
 <p align="center" style="font-size: 16px;">
-AGRI is a full-stack web application that enables direct trade between farmers and consumers while offering weather insights, secure payments, live chat, and product transparency.
+AGRI is a scalable, secure, and farmer-centric full-stack web application that connects farmers directly with end consumers, retailers, and micro-buyers. It empowers rural producers through transparent trade, decision support systems, and community tools — eliminating middlemen and increasing farmer incomes.
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge" />
