@@ -35,8 +35,8 @@ const createEquipment = async (req, res) => {
     await equipment.save();
     res.status(201).json(equipment);
   } catch (error) {
-    console.error('Error creating equipment:', error);
-    res.status(500).json({ message: 'Error creating equipment', error: error.message });
+    console.error('CREATE EQUIPMENT ERROR:', error.stack); // ← important for logs
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 const getEquipments = async (req, res) => {
