@@ -574,7 +574,7 @@ const FarmerDashboard = ({ user }) => {
 
             <button
               type="submit"
-              className="md:col-span-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 py-3.5 px-8 rounded-lg text-white font-medium transition-all transform hover:scale-[1.02]"
+              className="md:col-span-2 bg-linear-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 py-3.5 px-8 rounded-lg text-white font-medium transition-all transform hover:scale-[1.02]"
             >
               List Equipment for Rent
             </button>

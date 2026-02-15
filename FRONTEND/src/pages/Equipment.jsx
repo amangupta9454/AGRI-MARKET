@@ -1,207 +1,4 @@
-// import React, { useState, useEffect } from 'react';
-// import { getEquipments, createRental, verifyRentalPayment, getAddressFromLatLng } from '../utils/api';
-// import { useTranslation } from 'react-i18next';
-// import { loadRazorpay } from '../utils/razorpay'; // Assume you have a helper for loading Razorpay SDK
 
-// const Equipment = ({ user }) => {
-//   const { t } = useTranslation();
-//   const [equipments, setEquipments] = useState([]);
-//   const [selectedEquipment, setSelectedEquipment] = useState(null);
-//   const [duration, setDuration] = useState('');
-//   const [startDate, setStartDate] = useState('');
-//   const [consumerAddress, setConsumerAddress] = useState('');
-//   const [totalCharge, setTotalCharge] = useState(0);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-//   const [showModal, setShowModal] = useState(false);
-
-//   useEffect(() => {
-//     const fetchEquipments = async () => {
-//       try {
-//         const res = await getEquipments();
-//         setEquipments(res.data || []);
-//       } catch (err) {
-//         setError('Error fetching equipments');
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-//     fetchEquipments();
-//   }, []);
-
-//   const handleRentClick = (equipment) => {
-//     setSelectedEquipment(equipment);
-//     setShowModal(true);
-//   };
-
-//   const handleGetAddress = () => {
-//     if (navigator.geolocation) {
-//       navigator.geolocation.getCurrentPosition(async (position) => {
-//         const lat = position.coords.latitude;
-//         const lng = position.coords.longitude;
-//         const res = await getAddressFromLatLng(lat, lng);
-//         if (res.data.status === 'OK') {
-//           setConsumerAddress(res.data.results[0].formatted_address);
-//         }
-//       }, (error) => {
-//         console.error(error);
-//         alert('Error getting location');
-//       });
-//     } else {
-//       alert('Geolocation not supported');
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (selectedEquipment && duration) {
-//       setTotalCharge(selectedEquipment.charge * parseFloat(duration));
-//     }
-//   }, [duration, selectedEquipment]);
-
-//   const handlePay = async () => {
-//     if (!duration || !startDate || !consumerAddress) {
-//       alert('Please fill all fields');
-//       return;
-//     }
-//     try {
-//       const token = localStorage.getItem('token');
-//       const res = await createRental({
-//         equipmentId: selectedEquipment._id,
-//         duration: parseFloat(duration),
-//         startDate,
-//         consumerAddress,
-//       }, token);
-//       const { rental, razorpayOrder } = res.data;
-
-//       const options = {
-//         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-//         amount: razorpayOrder.amount,
-//         currency: razorpayOrder.currency,
-//         name: 'Farmers Market',
-//         description: 'Equipment Rental',
-//         order_id: razorpayOrder.id,
-//         handler: async (response) => {
-//           try {
-//             const verifyRes = await verifyRentalPayment({
-//               orderId: razorpayOrder.id,
-//               razorpayPaymentId: response.razorpay_payment_id,
-//               razorpaySignature: response.razorpay_signature,
-//             }, token);
-//             alert('Payment successful');
-//             setShowModal(false);
-//           } catch (err) {
-//             alert('Payment verification failed');
-//           }
-//         },
-//         theme: { color: '#3399cc' },
-//       };
-//       const rzp = new window.Razorpay(options);
-//       rzp.open();
-//     } catch (error) {
-//       console.error('Error initiating payment:', error);
-//       setError('Error initiating payment');
-//     }
-//   };
-
-//   if (loading) return <div>Loading...</div>;
-//   if (error) return <div>{error}</div>;
-
-//   return (
-//     <div className="container mx-auto p-4">
-//       <h2>Equipment for Rent</h2>
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//         {equipments.map((eq) => (
-//           <div key={eq._id} className="border p-4 rounded">
-//             <h3>{eq.name}</h3>
-//             <p>Charge: ₹{eq.charge} /{eq.rentalType}</p>
-//             <p>Location: {eq.locationName}</p>
-//             {eq.image && <img src={eq.image} alt={eq.name} className="w-full h-48 object-cover" />}
-//             <button onClick={() => handleRentClick(eq)} className="bg-blue-500 text-white p-2 rounded">Rent</button>
-//           </div>
-//         ))}
-//       </div>
-
-//     {showModal && selectedEquipment && (
-//   <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-//     <div className="bg-white p-6 rounded-lg w-full max-w-md mx-4">
-//       <h3 className="text-xl font-bold mb-4">Rent {selectedEquipment?.name || 'Equipment'}</h3>
-
-//       {/* Farmer info - safe access */}
-//       <p className="mb-2">
-//         <strong>Farmer:</strong>{' '}
-//         {selectedEquipment?.farmer?.name || 'Not available'}
-//       </p>
-
-//       {/* Consumer info - safe access */}
-//       <p className="mb-4">
-//         <strong>Consumer:</strong>{' '}
-//         {user?.name || 'Loading...'}
-//       </p>
-
-//       {/* Rest of your form fields */}
-//       <div className="space-y-4">
-//         <input
-//           type="number"
-//           placeholder="Duration (in hours/days)"
-//           value={duration}
-//           onChange={(e) => setDuration(e.target.value)}
-//           className="w-full p-2 border rounded"
-//           required
-//         />
-
-//         <input
-//           type="datetime-local"
-//           value={startDate}
-//           onChange={(e) => setStartDate(e.target.value)}
-//           className="w-full p-2 border rounded"
-//           required
-//         />
-
-//         <div className="flex gap-2">
-//           <input
-//             type="text"
-//             placeholder="Your full address"
-//             value={consumerAddress}
-//             onChange={(e) => setConsumerAddress(e.target.value)}
-//             className="flex-1 p-2 border rounded"
-//             required
-//           />
-//           <button
-//             type="button"
-//             onClick={handleGetAddress}
-//             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-//           >
-//             Use Current
-//           </button>
-//         </div>
-
-//         <p className="font-semibold">
-//           Total Charge: ₹{totalCharge || 0}
-//         </p>
-
-//         <div className="flex gap-3 mt-6">
-//           <button
-//             onClick={handlePay}
-//             className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-//           >
-//             Pay Now
-//           </button>
-//           <button
-//             onClick={() => setShowModal(false)}
-//             className="flex-1 bg-gray-500 text-white py-2 rounded hover:bg-gray-600"
-//           >
-//             Cancel
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// )}
-//     </div>
-//   );
-// };
-
-// export default Equipment;
 import React, { useState, useEffect } from 'react';
 import { getEquipments, createRental, verifyRentalPayment, getAddressFromLatLng } from '../utils/api';
 import { useTranslation } from 'react-i18next';
@@ -356,14 +153,14 @@ const Equipment = ({ user }) => {
       <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1a2332 25%, #142028 50%, #1a2332 75%, #0f172a 100%)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, #86efac 1px, transparent 1px), radial-gradient(circle at 75% 75%, #fbbf24 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
         
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-500 via-green-500 to-amber-500"></div>
+        <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-amber-500 via-green-500 to-amber-500"></div>
         
         <div className="relative py-12 px-4 sm:px-6 lg:px-8 pt-28">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Tractor className="w-10 h-10 text-amber-400" />
-                <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-amber-300 via-green-400 to-amber-300 bg-clip-text text-transparent">
+                <h1 className="text-4xl sm:text-5xl font-bold bg-linear-to-r from-amber-300 via-green-400 to-amber-300 bg-clip-text text-transparent">
                   Farm Equipment Marketplace
                 </h1>
               </div>
@@ -390,10 +187,10 @@ const Equipment = ({ user }) => {
                     key={eq._id}
                     className="group relative bg-slate-800/80 backdrop-blur-sm rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-green-500/30 hover:border-green-400/60 hover:-translate-y-2 shadow-xl"
                   >
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 via-green-500 to-amber-500"></div>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-amber-500 via-green-500 to-amber-500"></div>
                     
                     {eq.image && (
-                      <div className="h-56 overflow-hidden bg-gradient-to-br from-slate-700 to-slate-900">
+                      <div className="h-56 overflow-hidden bg-linear-to-br from-slate-700 to-slate-900">
                         <img
                           src={eq.image}
                           alt={eq.name}
@@ -403,14 +200,14 @@ const Equipment = ({ user }) => {
                     )}
 
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 min-h-[3.5rem]">
+                      <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 min-h-14">
                         {eq.name}
                       </h3>
 
                       <div className="space-y-3 mb-5">
                         <div className="flex items-center justify-between bg-slate-700/50 rounded-lg p-3 border border-green-500/30">
                           <span className="text-gray-300 text-sm font-medium">Rental Rate</span>
-                          <span className="text-2xl font-bold bg-gradient-to-r from-amber-300 to-green-400 bg-clip-text text-transparent">
+                          <span className="text-2xl font-bold bg-linear-to-r from-amber-300 to-green-400 bg-clip-text text-transparent">
                             ₹{eq.charge}
                           </span>
                         </div>
@@ -421,14 +218,14 @@ const Equipment = ({ user }) => {
                         </div>
                         
                         <div className="flex items-center gap-2 text-sm">
-                          <MapPin className="w-4 h-4 text-green-400 flex-shrink-0" />
+                          <MapPin className="w-4 h-4 text-green-400 shrink-0" />
                           <span className="text-green-300 font-semibold truncate">{eq.locationName}</span>
                         </div>
                       </div>
 
                       <button
                         onClick={() => handleRentClick(eq)}
-                        className="w-full bg-gradient-to-r from-amber-600 via-green-600 to-amber-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white py-3.5 rounded-xl font-bold transition-all duration-500 shadow-md hover:shadow-xl transform hover:scale-105 active:scale-95"
+                        className="w-full bg-linear-to-r from-amber-600 via-green-600 to-amber-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white py-3.5 rounded-xl font-bold transition-all duration-500 shadow-md hover:shadow-xl transform hover:scale-105 active:scale-95"
                         style={{ backgroundSize: '200% auto' }}
                       >
                         Rent This Equipment
@@ -444,7 +241,7 @@ const Equipment = ({ user }) => {
         {showModal && selectedEquipment && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
             <div className="bg-slate-800 rounded-3xl shadow-2xl w-full max-w-2xl mx-auto transform transition-all border-2 border-green-500/50 max-h-[90vh] overflow-y-auto">
-              <div className="sticky top-0 bg-gradient-to-r from-amber-600 via-green-600 to-amber-600 p-6 rounded-t-3xl border-b-4 border-amber-700/30">
+              <div className="sticky top-0 bg-linear-to-r from-amber-600 via-green-600 to-amber-600 p-6 rounded-t-3xl border-b-4 border-amber-700/30">
                 <div className="flex items-center gap-3">
                   <Tractor className="w-8 h-8 text-white" />
                   <h2 className="text-3xl font-bold text-white">
@@ -512,7 +309,7 @@ const Equipment = ({ user }) => {
                         type="button"
                         onClick={handleGetAddress}
                         disabled={loadingAddress}
-                        className="px-6 py-3.5 bg-gradient-to-r from-amber-600 to-green-600 text-white rounded-xl hover:from-amber-700 hover:to-green-700 transition-all duration-300 disabled:opacity-50 flex items-center gap-2 justify-center font-bold shadow-md hover:shadow-lg min-w-[140px]"
+                        className="px-6 py-3.5 bg-linear-to-r from-amber-600 to-green-600 text-white rounded-xl hover:from-amber-700 hover:to-green-700 transition-all duration-300 disabled:opacity-50 flex items-center gap-2 justify-center font-bold shadow-md hover:shadow-lg min-w-35"
                       >
                         {loadingAddress ? (
                           <Loader2 className="w-5 h-5 animate-spin" />
@@ -526,7 +323,7 @@ const Equipment = ({ user }) => {
                     </div>
                   </div>
 
-                  <div className="bg-gradient-to-r from-amber-600 via-green-600 to-amber-600 p-6 rounded-2xl shadow-lg border-4 border-slate-700">
+                  <div className="bg-linear-to-r from-amber-600 via-green-600 to-amber-600 p-6 rounded-2xl shadow-lg border-4 border-slate-700">
                     <div className="flex items-center justify-between">
                       <span className="text-white text-xl font-bold uppercase tracking-wide">Total Amount:</span>
                       <span className="text-white text-4xl font-black">₹{totalCharge.toFixed(2)}</span>
@@ -537,7 +334,7 @@ const Equipment = ({ user }) => {
                     <button
                       onClick={handlePay}
                       disabled={loadingPay}
-                      className="flex-1 bg-gradient-to-r from-green-600 via-green-700 to-green-800 text-white py-4 rounded-xl font-bold text-lg hover:from-green-700 hover:via-green-800 hover:to-green-900 transition-all shadow-lg hover:shadow-xl disabled:opacity-60 flex items-center justify-center gap-3 transform hover:scale-105 active:scale-95"
+                      className="flex-1 bg-linear-to-r from-green-600 via-green-700 to-green-800 text-white py-4 rounded-xl font-bold text-lg hover:from-green-700 hover:via-green-800 hover:to-green-900 transition-all shadow-lg hover:shadow-xl disabled:opacity-60 flex items-center justify-center gap-3 transform hover:scale-105 active:scale-95"
                     >
                       {loadingPay ? (
                         <>

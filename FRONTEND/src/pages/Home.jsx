@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   FaLeaf, FaHandshake, FaHeart, FaRecycle, FaTruck, FaClock, 
   FaShoppingBasket, FaUsers, FaArrowRight
@@ -347,8 +348,8 @@ const Home = () => {
 
         {/* Grok CTA */}
         <div className="flex justify-center mt-24 md:mt-32 pb-12">
-          <a
-            href="https://grok.com/?referrer=website"
+          <Link
+            to="/chatbot"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative flex items-center gap-4 px-10 py-6 bg-linear-to-r from-emerald-700/80 to-teal-700/80 hover:from-emerald-600 hover:to-teal-600 rounded-full shadow-2xl shadow-emerald-900/30 transition-all duration-400 hover:scale-105 hover:shadow-emerald-700/50 active:scale-95 border border-emerald-600/40 hover:border-emerald-500/60 overflow-hidden"
@@ -356,9 +357,9 @@ const Home = () => {
             <div className="absolute inset-0 bg-linear-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
             
             <SiOpenai className="text-4xl group-hover:rotate-12 transition-transform duration-500 relative z-10" />
-            <span className="font-bold text-lg relative z-10">Ask Grok Anything About Farming</span>
+            <span className="font-bold text-lg relative z-10">Ask Chatbot Anything About Farming</span>
             <FaArrowRight className="text-base relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-          </a>
+          </Link>
         </div>
       </section>
 

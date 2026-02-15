@@ -17,12 +17,7 @@ const app = express();
 
 connectDB();
 
-app.use(cors({
-  origin: [process.env.FRONTEND_URL], // ← list allowed origins (add more if needed)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'], // add any custom headers your frontend sends
-  credentials: true, // if you ever use cookies/auth with credentials
-}));
+app.use(cors("*"));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/api/equipments', equipmentRoutes);

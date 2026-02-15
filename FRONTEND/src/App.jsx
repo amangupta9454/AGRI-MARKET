@@ -20,6 +20,7 @@ import AdminLogin from './components/AdminLogin';
 import Ai from './components/Ai';
 import Loan from './components/Loan';
 import Equipment from './pages/Equipment';
+import Chatbot from './pages/Chatbot';
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/ai" element={<Ai />} />
           <Route path="/loan" element={<Loan />} />
+          <Route path="/chatbot" element={<Chatbot />} />
           <Route 
   path="/equipment" 
   element={
