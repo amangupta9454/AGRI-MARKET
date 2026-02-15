@@ -1,117 +1,80 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  FaLeaf, FaHandshake, FaHeart, FaRecycle, FaTruck, FaClock, 
-  FaShoppingBasket, FaUsers, FaArrowRight
+import {
+  FaLeaf, FaShoppingCart, FaUsers, FaTruck, FaCheck,
+  FaArrowRight, FaStar, FaPhone, FaMapMarkerAlt, FaEnvelope,
+  FaBarcode, FaThermometerHalf, FaShieldAlt , FaSeedling
 } from 'react-icons/fa';
-import { SiOpenai } from "react-icons/si";
+import hero from '/hero.png';
 
-import one   from '../assets/1.jpg';
-import two   from '../assets/2.jpg';
+import one from '../assets/1.jpg';
+import two from '../assets/2.jpg';
 import three from '../assets/3.jpg';
-import four  from '../assets/4.jpg';
-import five  from '../assets/5.jpg';
-import six   from '../assets/6.jpg';
+import four from '../assets/4.jpg';
+import five from '../assets/5.jpg';
+import six from '../assets/6.jpg';
 
-const FeatureCard = memo(({ icon, title, description, color = "green" }) => {
-  const colorClasses = {
-    green: {
-      bg: 'from-green-900/40 to-emerald-900/30',
-      border: 'border-green-700/40 hover:border-green-600/60',
-      icon: 'text-green-400 group-hover:text-green-300',
-      title: 'group-hover:text-green-300',
-      shadow: 'hover:shadow-green-900/30'
-    },
-    emerald: {
-      bg: 'from-emerald-900/40 to-teal-900/30',
-      border: 'border-emerald-700/40 hover:border-emerald-600/60',
-      icon: 'text-emerald-400 group-hover:text-emerald-300',
-      title: 'group-hover:text-emerald-300',
-      shadow: 'hover:shadow-emerald-900/30'
-    },
-    teal: {
-      bg: 'from-teal-900/40 to-cyan-900/30',
-      border: 'border-teal-700/40 hover:border-teal-600/60',
-      icon: 'text-teal-400 group-hover:text-teal-300',
-      title: 'group-hover:text-teal-300',
-      shadow: 'hover:shadow-teal-900/30'
-    }
-  };
-
-  const styles = colorClasses[color] || colorClasses.green;
-
-  return (
-    <div className={`
-      group relative bg-linear-to-br ${styles.bg}
-      backdrop-blur-md border ${styles.border} rounded-2xl 
-      overflow-hidden transition-all duration-500 
-      hover:scale-[1.02] ${styles.shadow}
-      p-8 h-full flex flex-col
-    `}>
-      <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
-      
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none bg-linear-to-br from-white/5 via-transparent to-transparent" />
-      
-      <div className="relative z-10 flex flex-col h-full">
-        <div className={`${styles.icon} text-5xl mb-6 transform group-hover:scale-125 group-hover:rotate-12 transition-all duration-500`}>
-          {icon}
-        </div>
-        
-        <h3 className={`text-2xl font-bold text-white mb-4 ${styles.title} transition-colors duration-300`}>
-          {title}
-        </h3>
-        
-        <p className="text-gray-300/85 leading-relaxed text-base grow">
-          {description}
-        </p>
-
-        <div className="mt-6 flex items-center text-gray-400 group-hover:text-white/80 transition-colors duration-300">
-          <div className="w-0 h-0.5 bg-linear-to-r from-transparent to-white/40 group-hover:to-white/60 group-hover:w-12 transition-all duration-500" />
-        </div>
+const StatCard = memo(({ number, label, icon: Icon }) => (
+  <div className="group p-6 sm:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-green-500/30 transition-all duration-300 hover:bg-white/10">
+    <div className="flex items-start justify-between">
+      <div>
+        <p className="text-4xl sm:text-5xl font-bold text-white mb-2">{number}</p>
+        <p className="text-gray-400 text-sm sm:text-base">{label}</p>
       </div>
+      <Icon className="text-green-500 text-3xl opacity-50 group-hover:opacity-100 transition-opacity" />
     </div>
-  );
-});
+  </div>
+));
 
-const ProductCard = memo(({ img, name, description }) => (
-  <div className="
-    group relative bg-linear-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-md 
-    border border-emerald-700/30 hover:border-emerald-600/50 rounded-3xl 
-    overflow-hidden transition-all duration-500 
-    hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-900/25
-    flex flex-col h-full
-  ">
-    <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-linear-to-br from-emerald-400/30 to-transparent transition-opacity duration-500" />
+const FeatureCard = memo(({ icon: Icon, title, description }) => (
+  <div className="group p-8 rounded-xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 hover:border-green-500/30 transition-all duration-300">
+    <div className="mb-4 inline-block p-3 rounded-lg bg-green-600/20 group-hover:bg-green-600/30 transition-colors">
+      <Icon className="text-green-500 text-2xl" />
+    </div>
+    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors">{title}</h3>
+    <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
+  </div>
+));
 
-    <div className="relative h-72 overflow-hidden shrink-0">
+const ProductCard = memo(({ img, name, description, price = null, badge = null }) => (
+  <div className="group rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-green-500/30 transition-all duration-300 hover:bg-white/10 flex flex-col h-full">
+    <div className="relative h-64 overflow-hidden bg-gray-800">
+      {badge && (
+        <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full">
+          {badge}
+        </div>
+      )}
       <img
         src={img}
         alt={name}
         loading="lazy"
         decoding="async"
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-115 brightness-95 group-hover:brightness-105"
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
       />
-      <div className="absolute inset-0 bg-linear-to-t from-gray-950/80 via-gray-950/20 to-transparent" />
-      
-      
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
-    
-    <div className="p-8 relative z-10 grow flex flex-col">
-      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors duration-300">
-        {name}
-      </h3>
-      <p className="text-gray-300/85 leading-relaxed text-base grow">
-        {description}
-      </p>
-      
-      
+
+    <div className="p-6 flex flex-col flex-grow">
+      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors">{name}</h3>
+      <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">{description}</p>
+
+      <div className="flex items-center justify-between pt-4 border-t border-white/10">
+        <div className="flex items-center gap-1">
+          {[...Array(5)].map((_, i) => (
+            <FaStar key={i} className="text-green-500 text-xs" />
+          ))}
+        </div>
+        {price && <span className="text-green-400 font-bold text-sm">{price}</span>}
+      </div>
     </div>
   </div>
 ));
 
 const Home = () => {
+  const [visibleStats, setVisibleStats] = useState(false);
   const [visibleFeatures, setVisibleFeatures] = useState(false);
   const [visibleProducts, setVisibleProducts] = useState(false);
+  const statsRef = useRef(null);
   const featuresRef = useRef(null);
   const productsRef = useRef(null);
 
@@ -120,164 +83,186 @@ const Home = () => {
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            if (entry.target === statsRef.current) setVisibleStats(true);
             if (entry.target === featuresRef.current) setVisibleFeatures(true);
             if (entry.target === productsRef.current) setVisibleProducts(true);
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -100px 0px" }
+      { threshold: 0.1 }
     );
 
+    if (statsRef.current) observer.observe(statsRef.current);
     if (featuresRef.current) observer.observe(featuresRef.current);
     if (productsRef.current) observer.observe(productsRef.current);
 
     return () => observer.disconnect();
   }, []);
 
-  const features = [
-    {
-      icon: <FaLeaf />,
-      title: "Farm Fresh Daily",
-      description: "Harvested at peak ripeness and delivered within hours for maximum flavor and nutrition.",
-      color: "green"
-    },
-    {
-      icon: <FaHandshake />,
-      title: "Support Local Farmers",
-      description: "Direct partnerships with small-scale growers in your region — fair prices, strong communities.",
-      color: "emerald"
-    },
-    {
-      icon: <FaHeart />,
-      title: "100% Certified Organic",
-      description: "No synthetic pesticides, fertilizers or GMOs — just clean, honest food from nature.",
-      color: "teal"
-    },
-    {
-      icon: <FaRecycle />,
-      title: "Sustainable Practices",
-      description: "Regenerative farming, water conservation, biodiversity protection — farming for tomorrow.",
-      color: "green"
-    },
-    {
-      icon: <FaTruck />,
-      title: "Lightning-Fast Delivery",
-      description: "Same-day or next-day delivery in covered areas — freshness preserved from soil to table.",
-      color: "emerald"
-    },
-    {
-      icon: <FaClock />,
-      title: "Peak Freshness Guarantee",
-      description: "Cold-chain logistics and quality checks ensure every item arrives in perfect condition.",
-      color: "teal"
-    },
-  ];
-
-  const products = [
-    { img: one,   name: "Organic Tomatoes",     description: "Deep red, vine-ripened, intensely flavorful — perfect for salads, sauces & snacking" },
-    { img: two,   name: "Baby Spinach",         description: "Tender, nutrient-packed leaves — ideal for smoothies, salads and quick sautés" },
-    { img: three, name: "Heritage Carrots",     description: "Sweet, colorful mix — rich in beta-carotene, beautiful raw or roasted" },
-    { img: four,  name: "Himalayan Apples",     description: "Crisp, juicy, naturally sweet — grown in high-altitude orchards" },
-    { img: five,  name: "English Cucumbers",    description: "Thin-skinned, seedless, refreshing — excellent for hydration & crunch" },
-    { img: six,   name: "Bell Pepper Medley",   description: "Vibrant red, yellow & green — sweet, crunchy, full of vitamin C" },
-  ];
-
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-linear-to-b from-gray-950 via-gray-900 to-gray-950 text-white">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white overflow-x-hidden">
 
-      {/* ─── Background ──────────────────────────────────────────────── */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(34,197,94,0.08)_0%,transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(16,185,129,0.06)_0%,transparent_60%)] animate-pulse" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.04)_0%,transparent_70%)]" />
-
-        <div 
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `
-              radial-gradient(circle at 2px 2px, rgba(52,211,153,0.12) 1.5px, transparent 1.5px)
-            `,
-            backgroundSize: '50px 50px'
-          }}
-        />
-
-        <div 
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\'/%3E%3CfeColorMatrix type=\'matrix\' values=\'0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',
-            mixBlendMode: 'overlay'
-          }}
-        />
-
-        <div className="absolute inset-0">
-          <div className="absolute w-2 h-2 bg-emerald-400/25 rounded-full blur-sm animate-pulse top-[12%] left-[15%]" style={{ animationDuration: '4s' }} />
-          <div className="absolute w-1.5 h-1.5 bg-teal-400/20 rounded-full blur-sm animate-pulse top-[45%] right-[18%]" style={{ animationDuration: '5s' }} />
-          <div className="absolute w-2.5 h-2.5 bg-green-400/18 rounded-full blur-sm animate-pulse bottom-[18%] left-[28%]" style={{ animationDuration: '6s' }} />
-          <div className="absolute w-2 h-2 bg-cyan-400/22 rounded-full blur-sm animate-pulse top-[72%] right-[12%]" style={{ animationDuration: '4.5s' }} />
-        </div>
+      {/* Background Elements */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-600/10 rounded-full blur-[128px]" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-600/5 rounded-full blur-[128px]" />
       </div>
 
-      {/* ─── Hero ────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[95vh] flex items-center justify-center px-5 sm:px-8 py-20 md:py-0 z-10">
-        <div className="text-center max-w-5xl">
-          <div className="mb-8 inline-block pt-24">
-            <div className="px-5 py-2.5 bg-linear-to-r from-green-600/20 to-emerald-600/20 border border-green-600/40 rounded-full backdrop-blur-sm">
-              <p className="text-sm lg:text-base font-semibold bg-clip-text text-transparent bg-linear-to-r from-green-300 to-emerald-300">
-                Welcome to sustainable farming
-              </p>
+      {/* Hero Section */}
+      <section className="relative z-10 min-h-screen flex items-center px-5 sm:px-8 pt-20">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+            {/* Left Content */}
+            <div className="space-y-8 pt-16">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-600/20 border border-green-600/40 mb-6 hover:border-green-600/60 transition-colors">
+                  <FaLeaf className="text-green-400 text-sm" />
+                  <span className="text-green-300 text-sm font-semibold">100% Organic & Fresh</span>
+                </div>
+                <div>
+                  <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-linear-to-r from-amber-400 via-yellow-300 to-green-400 bg-clip-text text-transparent tracking-wide">
+                  FARMIO
+                  <span className="block text-green-400">HAR KISSAN KA DIGITAL SAATHI </span>
+                </h1>
+                </div>
+                
+
+                <p className="text-lg text-gray-300 max-w-xl leading-relaxed">
+                  Discover the finest organic produce directly from local farmers. Every item is handpicked for quality, freshness, and nutrition. Supporting sustainable agriculture, one delivery at a time.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to='/product'
+                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all duration-300 hover:gap-3"
+                >
+                  <FaShoppingCart className="text-lg" />
+                  <span>Shop Now</span>
+                  <FaArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+
+                <a
+                  href="tel:+919560472926"
+                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-lg border border-white/20 hover:border-white/30 transition-all duration-300"
+                >
+                  <FaPhone className="text-lg" />
+                  <span>Call Us</span>
+                </a>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="flex flex-wrap gap-4 pt-4 pb-4">
+                <div className="flex items-center gap-2">
+                  <FaCheck className="text-green-400" />
+                  <span className="text-sm text-gray-300">Same-day Delivery</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaCheck className="text-green-400" />
+                  <span className="text-sm text-gray-300">Quality Guaranteed</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaCheck className="text-green-400" />
+                  <span className="text-sm text-gray-300">Certified Organic</span>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl font-extrabold tracking-tighter mb-8 bg-clip-text text-transparent bg-linear-to-r from-green-300 via-emerald-300 to-teal-300 pb-2">
-            FARMIO
-          </h1>
+            {/* Right Logo/Image */}
+            <div className="flex items-center justify-center lg:justify-end">
+              <div className="relative w-96 h-96">
+              
+                <div className="relative   p-8 flex items-center justify-center h-full">
+                  <img
+                    src={hero}
+                    alt="Farmio Logo"
+                    className="w-full h-full "
+                    style={{ animationDuration: '3s' }}
+                  />
+                </div>
+              </div>
+            </div>
 
-          <p className="text-2xl sm:text-3xl md:text-4xl font-medium mb-6 text-gray-100 leading-tight">
-            Local Roots, Fresh Routes
-          </p>
-
-          <p className="text-base sm:text-lg md:text-xl text-gray-400/95 max-w-3xl mx-auto mb-12 md:mb-16 leading-relaxed">
-            Connecting conscious consumers with the finest organic produce — grown locally, delivered fresh, every single time.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
-            <a
-              href="#products"
-              className="group relative inline-flex items-center px-10 py-5 bg-linear-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-lg rounded-full shadow-2xl shadow-green-900/40 transition-all duration-400 hover:scale-105 hover:shadow-green-700/50 active:scale-95 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-              <FaShoppingBasket className="mr-3 text-xl relative z-10" />
-              <span className="relative z-10">Explore Fresh Harvest</span>
-            </a>
-
-            <button className="group relative inline-flex items-center px-8 py-5 bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 text-white font-bold text-lg rounded-full transition-all duration-400 hover:scale-105 active:scale-95 backdrop-blur-sm">
-              <span className="relative z-10">Learn More</span>
-              <FaArrowRight className="ml-3 text-lg relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
           </div>
         </div>
       </section>
 
-      {/* ─── Features ────────────────────────────────────────────────── */}
-      <section ref={featuresRef} className="py-24 md:py-32 relative z-10">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="mb-20 md:mb-28">
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold text-center mb-6 bg-clip-text text-transparent bg-linear-to-r from-green-300 via-emerald-300 to-teal-300">
-              Why Families Choose Farmio
+      {/* Stats Section */}
+      <section ref={statsRef} className="relative z-10 py-16 sm:py-24 px-5 sm:px-8 bg-white/5 border-y border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {[
+              { number: '50+', label: 'Happy Customers', icon: FaUsers },
+              { number: '5+', label: 'Local Farms', icon: FaLeaf },
+              { number: '100+', label: 'Products', icon: FaShoppingCart },
+              { number: '24/7', label: 'Fresh Guarantee', icon: FaTruck },
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className={`transition-all duration-700 ${
+                  visibleStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                <StatCard {...stat} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section ref={featuresRef} className="relative z-10 py-20 sm:py-28 px-5 sm:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-white">
+              Why Choose <span className="text-green-400">Farmio?</span>
             </h2>
-            <p className="text-center text-gray-400/90 text-lg md:text-xl max-w-2xl mx-auto">
-              Experience the difference of truly fresh, sustainably-grown produce
+            <p className="text-lg text-gray-400 max-w-2xl">
+              We are committed to bringing you the freshest organic produce with complete transparency and quality assurance.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {features.map((feature, i) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: FaLeaf,
+                title: 'Farm Fresh Daily',
+                description: 'Harvested at peak ripeness and delivered within 24 hours for maximum freshness and nutrition.'
+              },
+              {
+                icon: FaUsers,
+                title: 'Support Local Farmers',
+                description: 'Direct partnerships with small-scale growers. Fair prices, strong communities, sustainable practices.'
+              },
+              {
+                icon: FaShieldAlt,
+                title: 'Quality Assured',
+                description: 'Every product undergoes rigorous quality checks before reaching your doorstep.'
+              },
+              {
+                icon: FaTruck,
+                title: 'Fast Delivery',
+                description: 'Same-day or next-day delivery in covered areas with temperature-controlled logistics.'
+              },
+              {
+                icon: FaBarcode,
+                title: 'Traceable Origin',
+                description: 'Know exactly which farm your food comes from with complete transparency and farm details.'
+              },
+              {
+                icon: FaThermometerHalf,
+                title: 'Cold Chain Maintained',
+                description: 'Advanced logistics ensure freshness from harvest to your kitchen in perfect condition.'
+              },
+            ].map((feature, i) => (
               <div
                 key={i}
-                className={`transition-all duration-1000 ease-out ${
-                  visibleFeatures ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                className={`transition-all duration-700 ${
+                  visibleFeatures ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-                style={{ transitionDelay: `${i * 100}ms` }}
+                style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <FeatureCard {...feature} />
               </div>
@@ -286,80 +271,138 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ─── Products ────────────────────────────────────────────────── */}
-      <section id="products" ref={productsRef} className="py-24 md:py-32 relative z-10">
-        <div className="absolute inset-0 -z-10 bg-linear-to-b from-transparent via-emerald-950/10 to-transparent" />
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="mb-20 md:mb-28">
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold text-center mb-6 bg-clip-text text-transparent bg-linear-to-r from-emerald-300 via-teal-300 to-cyan-300">
-              This Season's Finest
+      {/* Products Section */}
+      <section id="products" ref={productsRef} className="relative z-10 py-20 sm:py-28 px-5 sm:px-8 bg-white/5 border-t border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-white">
+              Featured <span className="text-green-400">Produce</span>
             </h2>
-            <p className="text-center text-gray-400/90 text-lg md:text-xl max-w-2xl mx-auto">
-              Handpicked fresh produce sourced directly from local organic farms
+            <p className="text-lg text-gray-400 max-w-2xl">
+              This week's handpicked selection of the freshest organic produce from our network of trusted local farms.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {products.map((product, i) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { img: one, name: 'Organic Tomatoes', description: 'Deep red, vine-ripened, intensely flavorful. Perfect for fresh salads and cooking.', price: '₹80/kg', badge: 'Fresh' },
+              { img: two, name: 'Baby Spinach', description: 'Tender, nutrient-packed leaves. Ideal for smoothies, salads and quick sautés.', price: '₹60/kg', badge: 'New' },
+              { img: three, name: 'Heritage Carrots', description: 'Sweet, colorful mix rich in beta-carotene. Beautiful raw or roasted.', price: '₹50/kg', badge: 'Fresh' },
+              { img: four, name: 'Himalayan Apples', description: 'Crisp, juicy, naturally sweet. Grown in high-altitude orchards with care.', price: '₹120/kg', badge: null },
+              { img: five, name: 'English Cucumbers', description: 'Thin-skinned, seedless, refreshing. Excellent for hydration and crunch.', price: '₹40/kg', badge: 'Fresh' },
+              { img: six, name: 'Bell Pepper Medley', description: 'Vibrant red, yellow and green. Sweet, crunchy, full of vitamin C.', price: '₹90/kg', badge: null },
+            ].map((product, i) => (
               <div
                 key={i}
-                className={`transition-all duration-1000 ease-out ${
-                  visibleProducts ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                className={`transition-all duration-700 ${
+                  visibleProducts ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-                style={{ transitionDelay: `${i * 100}ms` }}
+                style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <ProductCard {...product} />
               </div>
             ))}
           </div>
-        </div>
 
-        {/* CTA Block */}
-        <div className="mt-28 md:mt-36 max-w-4xl mx-auto px-5 sm:px-8 text-center">
-          <div className="relative group">
-            <div className="absolute inset-0 bg-linear-to-r from-green-600/30 to-emerald-600/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <div className="relative bg-linear-to-br from-green-950/60 via-teal-950/50 to-green-950/60 backdrop-blur-xl p-12 md:p-16 rounded-3xl border border-emerald-700/40 hover:border-emerald-600/60 transition-all duration-500 shadow-2xl">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight">
-                Ready to Join the Farmio Family?
-              </h2>
-              <p className="text-lg md:text-xl text-gray-300/90 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Whether you're a farmer, a shop, a restaurant or a passionate home cook — let's grow a better food system together.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a
-                  href="tel:+919560472926"
-                  className="group/btn relative inline-flex items-center px-10 py-5 bg-linear-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-lg rounded-full shadow-xl transition-all duration-400 hover:scale-105 hover:shadow-green-700/50 active:scale-95 overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-400" />
-                  <FaUsers className="mr-3 text-2xl relative z-10" />
-                  <span className="relative z-10">Connect With Us</span>
-                </a>
-
-                <button className="inline-flex items-center px-8 py-5 bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 text-white font-semibold text-base rounded-full transition-all duration-400 hover:scale-105 active:scale-95 backdrop-blur-sm">
-                  Browse Catalog
-                </button>
-              </div>
-            </div>
+          <div className="mt-12 text-center">
+            <Link to='/product' className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all duration-300 hover:gap-3">
+              <span>View All Products</span>
+              <FaArrowRight />
+            </Link>
           </div>
         </div>
+      </section>
 
-        {/* Grok CTA */}
-        <div className="flex justify-center mt-24 md:mt-32 pb-12">
-          <Link
-            to="/chatbot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative flex items-center gap-4 px-10 py-6 bg-linear-to-r from-emerald-700/80 to-teal-700/80 hover:from-emerald-600 hover:to-teal-600 rounded-full shadow-2xl shadow-emerald-900/30 transition-all duration-400 hover:scale-105 hover:shadow-emerald-700/50 active:scale-95 border border-emerald-600/40 hover:border-emerald-500/60 overflow-hidden"
+      {/* Info Section */}
+      <section className="relative z-10 py-20 sm:py-28 px-5 sm:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+
+            <div>
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">
+                How <span className="text-green-400">Farmio</span> Works
+              </h2>
+              <div className="space-y-6">
+                {[
+                  { step: '1', title: 'Browse & Select', desc: 'Explore our fresh produce catalog with detailed farm information and quality ratings.' },
+                  { step: '2', title: 'Place Order', desc: 'Easy checkout process with multiple payment options and delivery scheduling.' },
+                  { step: '3', title: 'Fresh Harvest', desc: 'Orders trigger farm-fresh harvesting to ensure maximum freshness and quality.' },
+                  { step: '4', title: 'Swift Delivery', desc: 'Temperature-controlled delivery ensures your produce arrives in perfect condition.' },
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-green-600/20 border border-green-600/40 flex items-center justify-center font-bold text-green-400">
+                      {item.step}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white mb-1">{item.title}</h3>
+                      <p className="text-gray-400 text-sm">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-2xl p-8 space-y-6">
+              <h3 className="text-2xl font-bold text-white mb-6">Get In Touch</h3>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-green-600/20 flex items-center justify-center flex-shrink-0">
+                    <FaPhone className="text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Call us</p>
+                    <a href="tel:+919560472926" className="text-white font-semibold hover:text-green-400 transition-colors">+91 9560 472926</a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-green-600/20 flex items-center justify-center flex-shrink-0">
+                    <FaEnvelope className="text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Email us</p>
+                    <a href="mailto:info@farmio.com" className="text-white font-semibold hover:text-green-400 transition-colors">info@farmio.com</a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-green-600/20 flex items-center justify-center flex-shrink-0">
+                    <FaMapMarkerAlt className="text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Location</p>
+                    <p className="text-white font-semibold">Across India</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-white/10">
+                <p className="text-sm text-gray-400 mb-4">Operating Hours</p>
+                <p className="text-white font-semibold">Monday - Sunday: 6:00 AM - 10:00 PM</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Footer */}
+      <section className="relative z-10 py-16 px-5 sm:px-8 bg-gradient-to-r from-green-600/20 to-green-600/10 border-t border-white/10">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
+            Ready to Experience Farm Fresh?
+          </h2>
+          <p className="text-gray-300 mb-8 text-lg">
+            Join thousands of happy customers enjoying the freshest organic produce delivered to their doorstep.
+          </p>
+          <a
+            href="#products"
+            className="inline-flex items-center gap-2 px-10 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-all duration-300 text-lg"
           >
-            <div className="absolute inset-0 bg-linear-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-            
-            <SiOpenai className="text-4xl group-hover:rotate-12 transition-transform duration-500 relative z-10" />
-            <span className="font-bold text-lg relative z-10">Ask Chatbot Anything About Farming</span>
-            <FaArrowRight className="text-base relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-          </Link>
+            <span>Order Now</span>
+            <FaArrowRight />
+          </a>
         </div>
       </section>
 
