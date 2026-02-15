@@ -37,7 +37,7 @@ const Navbar = ({ user, setUser }) => {
             >
               <FaSeedling className="text-2xl lg:text-3xl text-green-400" />
               <span className="text-xl sm:text-2xl lg:text-3xl font-bold bg-linear-to-r from-amber-400 via-yellow-300 to-green-400 bg-clip-text text-transparent tracking-wide">
-                AGRI-FARMIO
+                FARMIO
               </span>
             </Link>
 
