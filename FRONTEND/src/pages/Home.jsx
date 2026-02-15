@@ -5,6 +5,9 @@ import {
   FaArrowRight, FaStar, FaPhone, FaMapMarkerAlt, FaEnvelope,
   FaBarcode, FaThermometerHalf, FaShieldAlt , FaSeedling
 } from 'react-icons/fa';
+import { GiPlantSeed } from "react-icons/gi";
+
+import { Bot} from 'lucide-react';
 import hero from '/hero.png';
 
 import one from '../assets/1.jpg';
@@ -121,10 +124,19 @@ const Home = () => {
                   <span className="text-green-300 text-sm font-semibold">100% Organic & Fresh</span>
                 </div>
                 <div>
-                  <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-linear-to-r from-amber-400 via-yellow-300 to-green-400 bg-clip-text text-transparent tracking-wide">
-                  FARMIO
-                  <span className="block text-green-400">HAR KISSAN KA DIGITAL SAATHI </span>
-                </h1>
+                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 bg-linear-to-r from-amber-400 via-yellow-300 to-green-400 bg-clip-text text-transparent tracking-wide">
+  
+  <span className="flex items-center gap-4">
+    <GiPlantSeed className="text-green-400 text-4xl sm:text-5xl lg:text-6xl" />
+    FARMIO
+  </span>
+
+  <span className="inline-block text-green-400">
+  HAR KISSAN KA DIGITAL SAATHI
+</span>
+
+</h1>
+
                 </div>
                 
 
@@ -404,7 +416,28 @@ const Home = () => {
             <FaArrowRight />
           </a>
         </div>
+        
       </section>
+      {/* the chatbot is hardly visible on the home page */}
+
+       <div className="fixed bottom-8 right-8 z-50">
+  <Link
+    to="https://anadata-ai.netlify.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-black/90 backdrop-blur-md shadow-2xl rounded-full p-4 
+               group flex items-center justify-center 
+               transition-all duration-300 hover:scale-110 hover:bg-black"
+    aria-label="Open AI Career Coach Chatbot"
+  >
+    <Bot
+      className="w-16 h-16 text-green-500 group-hover:text-green-300 
+                 transition-colors duration-300"
+    />
+  </Link>
+</div>
+
+        
 
     </div>
   );
