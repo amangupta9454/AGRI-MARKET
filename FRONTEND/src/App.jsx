@@ -21,6 +21,8 @@ import Ai from './components/Ai';
 import Loan from './components/Loan';
 import Equipment from './pages/Equipment';
 import Chatbot from './pages/Chatbot';
+import CropDieases from './components/CropDieases';
+import About from './pages/About';
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -70,6 +72,8 @@ const App = () => {
           <Route path="/ai" element={<Ai />} />
           <Route path="/loan" element={<Loan />} />
           <Route path="/chatbot" element={<Chatbot />} />
+          <Route path="/crop-diseases" element={<CropDieases />} />
+          <Route path="/about" element={<About />} />
           <Route 
   path="/equipment" 
   element={
