@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getPrices } from '../utils/api';
 import i18next from '../utils/i18n';
@@ -13,9 +13,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import backgroundImage from '../assets/5.jpg';
 
-// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const PriceTransparency = () => {
@@ -29,42 +27,37 @@ const PriceTransparency = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [lastFetched, setLastFetched] = useState(null);
-  const tableRef = useRef(null);
 
   const states = [
-    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat',
-    'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh',
-    'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab',
-    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh',
-    'Uttarakhand', 'West Bengal'
-  ];
-  const commodities = [
-    'Wheat', 'Rice', 'Maize', 'Barley', 'Jowar', 'Bajra', 'Ragi', 'Chickpea', 'Pigeon Pea',
-    'Green Gram', 'Black Gram', 'Lentil', 'Onion', 'Potato', 'Tomato', 'Brinjal', 'Cabbage',
-    'Cauliflower', 'Green Peas', 'Okra', 'Mango', 'Banana', 'Citrus', 'Apple', 'Guava', 'Grapes',
-    'Groundnut', 'Soybean', 'Mustard', 'Sesame', 'Sunflower', 'Turmeric', 'Chilli', 'Coriander',
-    'Cumin', 'Black Pepper', 'Cardamom', 'Sugarcane', 'Cotton', 'Jute', 'Tea', 'Coffee', 'Milk',
-    'Cashew', 'Tobacco'
-  ];
-  const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'hi', name: 'Hindi' },
-    { code: 'ta', name: 'Tamil' },
-    { code: 'bh', name: 'Bhojpuri' },
-    { code: 'mr', name: 'Marathi' },
-    { code: 'sa', name: 'Sanskrit' },
-    { code: 'bn', name: 'Bengali' },
+    'Andhra Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Gujarat', 'Haryana',
+    'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh',
+    'Maharashtra', 'Odisha', 'Punjab', 'Rajasthan', 'Tamil Nadu', 'Telangana',
+    'Uttar Pradesh', 'Uttarakhand', 'West Bengal', /* shortened for demo */
   ];
 
-  const fetchPrices = async (forceRefresh = false) => {
+  const commodities = [
+    'Wheat', 'Rice', 'Maize', 'Onion', 'Potato', 'Tomato', 'Brinjal',
+    'Cauliflower', 'Green Peas', 'Okra', 'Mango', 'Banana', 'Apple',
+    'Groundnut', 'Soybean', 'Mustard', 'Turmeric', 'Chilli', 'Cotton', /* shortened */
+  ];
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'hi', name: 'हिन्दी' },
+    { code: 'ta', name: 'தமிழ்' },
+    { code: 'bn', name: 'বাংলা' },
+    { code: 'mr', name: 'मराठी' },
+  ];
+
+  const fetchPrices = async (force = false) => {
     setLoading(true);
     setError('');
     try {
-      const response = await getPrices({ state, commodity, forceRefresh });
-      setPrices(response.data);
+      const res = await getPrices({ state, commodity, forceRefresh: force });
+      setPrices(res.data || []);
       setLastFetched(new Date());
     } catch (err) {
-      setError(t('error.fetchingData'));
+      setError(t('error.fetchingData') || 'Failed to load prices');
     } finally {
       setLoading(false);
     }
@@ -72,393 +65,221 @@ const PriceTransparency = () => {
 
   useEffect(() => {
     fetchPrices();
-  }, [state, commodity]);
+  }, [state, commodity, language]); // language change can trigger re-fetch if translations affect UI
 
-  // Check if data is outdated (older than 12 hours)
-  const isDataOutdated = lastFetched && (Date.now() - lastFetched) > 12 * 60 * 60 * 1000;
-
-  const handleLanguageChange = (e) => {
-    const newLang = e.target.value;
-    setLanguage(newLang);
-    i18next.changeLanguage(newLang);
-  };
-
-  const filteredPrices = prices.filter((price) =>
-    Object.values({
-      state: price.state,
-      district: price.district,
-      market: price.market,
-      commodity: price.commodity,
-      variety: price.variety,
-    }).some((value) =>
-      value.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+  const filtered = prices.filter(p =>
+    [p.state, p.district, p.market, p.commodity, p.variety]
+      .some(val => val?.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  const sortedPrices = React.useMemo(() => {
-    if (!sortConfig.key) return filteredPrices;
-    return [...filteredPrices].sort((a, b) => {
-      const aValue = a[sortConfig.key];
-      const bValue = b[sortConfig.key];
-      if (typeof aValue === 'number') {
-        return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
+  const sorted = React.useMemo(() => {
+    if (!sortConfig.key) return filtered;
+    return [...filtered].sort((a, b) => {
+      const aVal = a[sortConfig.key];
+      const bVal = b[sortConfig.key];
+      if (typeof aVal === 'number') {
+        return sortConfig.direction === 'asc' ? aVal - bVal : bVal - aVal;
       }
       return sortConfig.direction === 'asc'
-        ? aValue.localeCompare(bValue)
-        : bValue.localeCompare(aValue);
+        ? String(aVal).localeCompare(String(bVal))
+        : String(bVal).localeCompare(String(aVal));
     });
-  }, [filteredPrices, sortConfig]);
+  }, [filtered, sortConfig]);
 
-  const handleSort = (key) => {
-    setSortConfig((prev) => ({
+  const toggleSort = (key) => {
+    setSortConfig(prev => ({
       key,
       direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc',
     }));
   };
 
-
-
-
-
-  const handleKeyDown = (e, index) => {
-    if (e.key === 'ArrowDown' && index < sortedPrices.length - 1) {
-      tableRef.current.querySelector(`tr:nth-child(${index + 2})`)?.focus();
-    } else if (e.key === 'ArrowUp' && index > 0) {
-      tableRef.current.querySelector(`tr:nth-child(${index})`)?.focus();
-    }
-  };
+  const isOutdated = lastFetched && (Date.now() - lastFetched) > 12 * 60 * 60 * 1000;
 
   return (
-    <>
-      <style>
-        {`
-          /* Global CSS for animations and effects */
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-          }
-          @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-          }
-          .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-          }
-          .slide-in {
-            animation: slideIn 0.5s ease-out forwards;
-          }
-          .bounce {
-            animation: bounce 1.5s infinite;
-          }
-          .hover-scale {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          }
-          .hover-scale:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-          }
-          .focus-glow:focus {
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.4);
-          }
-          .glassmorphism {
-            background: rgba(60, 60, 60, 0.2); /* Darker background */
-            backdrop-filter: blur(60px); /* Increased blur for enhanced glassmorphism */
-            border: 1px solid rgba(255, 255, 255, 0.3);
-          }
-          .sort-arrow {
-            transition: transform 0.3s ease;
-          }
-          .sort-arrow.asc {
-            transform: rotate(180deg);
-          }
-          .sort-arrow.desc {
-            transform: rotate(0deg);
-          }
-          .sticky-header th {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background: linear-gradient(to right, #059669, #047857);
-          }
-          /* Ensure table cells wrap text */
-          td, th {
-            white-space: normal;
-            word-wrap: break-word;
-          }
-          /* Responsive table adjustments */
-          @media (min-width: 640px) {
-            .price-table-container {
-              overflow-x: auto;
-              -webkit-overflow-scrolling: touch;
-            }
-            .price-table {
-              width: 100%;
-              table-layout: auto;
-            }
-            td, th {
-              min-width: 120px;
-              max-width: 200px;
-              padding: 0.75rem;
-            }
-          }
-          @media (max-width: 639px) {
-            .price-table-container {
-              overflow-x: hidden;
-            }
-            .main-container {
-              padding-top: 5rem; /* Increased top padding for mobile to avoid navbar overlap */
-            }
-          }
-          /* Prevent unwanted margins */
-          html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
-          }
-        `}
-      </style>
-      <div
-        className="min-h-screen py-28 px-3 sm:px-6 lg:px-8 bg-gray-500/70 backdrop-blur-lg w-full box-border main-container"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-          backgroundColor: 'rgba(255, 255, 255, 0.85)',
-        }}
-      >
-        <div className="container mx-auto max-w-7xl w-full px-4">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-800 mb-8 text-center fade-in">
-            {t('priceTransparency.title')}
-          </h2>
-          {/* Refresh Button and Data Age Warning */}
-          <div className="mb-8 flex justify-between items-center slide-in" style={{ animationDelay: '0.1s' }}>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
+            {t('priceTransparency.title') || 'Market Prices'}
+          </h1>
+
+          <div className="flex items-center gap-3">
             <button
               onClick={() => fetchPrices(true)}
-              className="p-3 bg-teal-600 text-white rounded-xl hover:bg-teal-700 transition-colors duration-300 focus-glow"
               disabled={loading}
-              aria-label={t('priceTransparency.refresh')}
+              className="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition shadow-sm disabled:opacity-50"
             >
-              {t('priceTransparency.refresh')}
+              {loading ? 'Loading...' : t('priceTransparency.refresh') || 'Refresh'}
             </button>
-            {lastFetched && (
-              <p className={`text-sm ${isDataOutdated ? 'text-red-500' : 'text-gray-600'}`}>
-                {t('priceTransparency.lastUpdated')}: {lastFetched.toLocaleString()}
-                {isDataOutdated && ` (${t('priceTransparency.outdated')})`}
-              </p>
-            )}
-          </div>
-          {/* Search Input */}
-          <div className="mb-8 slide-in" style={{ animationDelay: '0.1s' }}>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t('priceTransparency.searchPlaceholder')}
-              className="w-full p-4 text-gray-700 bg-transparent glassmorphism rounded-xl shadow-lg focus-glow focus:border-teal-500 transition-all duration-300 hover-scale text-base sm:text-lg"
-              aria-label={t('priceTransparency.searchPlaceholder')}
-            />
-          </div>
-          {/* Dropdowns */}
-          <div className="mb-8 flex flex-col sm:flex-row gap-4 slide-in" style={{ animationDelay: '0.2s' }}>
-            <select
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-              className="p-4 text-gray-700 bg-transparent glassmorphism rounded-xl shadow-lg focus-glow focus:border-teal-500 transition-all duration-300 hover-scale w-full text-base sm:text-lg"
-              aria-label={t('priceTransparency.selectState')}
-            >
-              <option value="">{t('priceTransparency.selectState')}</option>
-              {states.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-            <select
-              value={commodity}
-              onChange={(e) => setCommodity(e.target.value)}
-              className="p-4 text-gray-700 bg-transparent glassmorphism rounded-xl shadow-lg focus-glow focus:border-teal-500 transition-all duration-300 hover-scale w-full text-base sm:text-lg"
-              aria-label={t('priceTransparency.selectCommodity')}
-            >
-              <option value="">{t('priceTransparency.selectCommodity')}</option>
-              {commodities.map((c) => (
-                <option key={c} value={c}>{c}</option>
-              ))}
-            </select>
+
             <select
               value={language}
-              onChange={handleLanguageChange}
-              className="p-4 text-gray-700 bg-transparent glassmorphism rounded-xl shadow-lg focus-glow focus:border-teal-500 transition-all duration-300 hover-scale w-full text-base sm:text-lg"
-              aria-label={t('priceTransparency.selectLanguage')}
+              onChange={e => {
+                const lng = e.target.value;
+                setLanguage(lng);
+                i18next.changeLanguage(lng);
+              }}
+              className="px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-green-500 focus:border-green-500"
             >
-              {languages.map((lang) => (
-                <option key={lang.code} value={lang.code}>{lang.name}</option>
+              {languages.map(lang => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.name}
+                </option>
               ))}
             </select>
           </div>
-          {/* Loading Spinner */}
-          {loading && (
-            <div className="flex justify-center items-center my-12 fade-in">
-              <svg
-                className="h-12 w-12 text-teal-500 bounce"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                aria-label={t('priceTransparency.loading')}
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-            </div>
-          )}
-          {/* Error Message */}
-          {error && (
-            <p className="text-red-500 text-center my-6 text-lg font-semibold fade-in">{error}</p>
-          )}
-          {/* No Data Message */}
-          {!loading && !error && sortedPrices.length === 0 && (
-            <p className="text-gray-600 text-center my-6 text-lg font-medium fade-in">
-              {t('priceTransparency.noData')}
-            </p>
-          )}
-         
-          {/* Table (Desktop/Tablet) and Cards (Mobile) */}
-          {sortedPrices.length > 0 && (
-            <>
-              {/* Table for Desktop/Tablet */}
-              <div
-                className="hidden sm:block price-table-container bg-transparent glassmorphism rounded-2xl shadow-xl fade-in"
-                style={{ animationDelay: '0.4s' }}
-              >
-                <table
-                  className="min-w-full border-collapse price-table"
-                  ref={tableRef}
-                  role="grid"
-                  aria-label={t('priceTransparency.title')}
-                >
-                  <thead className="bg-linear-to-r from-teal-600 to-teal-700 text-white">
-                    <tr className="sticky-header">
-                      {[
-                        { key: 'state', label: t('priceTransparency.state') },
-                        { key: 'district', label: t('priceTransparency.district') },
-                        { key: 'market', label: t('priceTransparency.market') },
-                        { key: 'commodity', label: t('priceTransparency.commodity') },
-                        { key: 'variety', label: t('priceTransparency.variety') },
-                        { key: 'min_price', label: t('priceTransparency.minPrice') },
-                        { key: 'max_price', label: t('priceTransparency.maxPrice') },
-                        { key: 'modal_price', label: t('priceTransparency.modalPrice') },
-                        { key: 'date', label: t('priceTransparency.date') },
-                      ].map(({ key, label }) => (
-                        <th
-                          key={key}
-                          className="p-3 text-left cursor-pointer hover:bg-teal-800 transition-colors duration-300 focus-glow text-sm sm:text-base"
-                          onClick={() => handleSort(key)}
-                          tabIndex={0}
-                          onKeyDown={(e) => e.key === 'Enter' && handleSort(key)}
-                          scope="col"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span>{label}</span>
-                            {sortConfig.key === key && (
-                              <svg
-                                className={`w-4 h-4 sort-arrow ${sortConfig.direction}`}
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d={sortConfig.direction === 'asc' ? 'M19 9l-7 7-7-7' : 'M5 15l7-7 7 7'}
-                                />
-                              </svg>
-                            )}
-                          </div>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {sortedPrices.map((price, index) => (
-                      <tr
-                        key={index}
-                        className={`text-left hover:bg-cyan-500 transition-colors duration-300 hover-scale ${index % 2 === 0 ? 'bg-transparent' : 'bg-transparent'}`}
-                        tabIndex={0}
-                        onKeyDown={(e) => handleKeyDown(e, index)}
-                        role="row"
-                      >
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">{price.state}</td>
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">{price.district}</td>
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">{price.market}</td>
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">{price.commodity}</td>
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">{price.variety}</td>
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">₹{price.min_price}</td>
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">₹{price.max_price}</td>
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">₹{price.modal_price}</td>
-                        <td className="p-3 border-b border-gray-200 text-white text-sm sm:text-base">{price.date}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              {/* Card Layout for Mobile */}
-              <div
-                className="sm:hidden grid gap-4 fade-in"
-                style={{ animationDelay: '0.4s' }}
-              >
-                {sortedPrices.map((price, index) => (
-                  <div
-                    key={index}
-                    className="bg-white p-5 rounded-xl shadow-lg glassmorphism hover-scale transition-all duration-300 focus-glow text-sm"
-                    tabIndex={0}
-                    onKeyDown={(e) => handleKeyDown(e, index)}
-                    role="article"
-                    aria-label={`Price data for ${price.commodity} in ${price.market}`}
-                  >
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.state')}:</div>
-                      <div className="text-gray-700">{price.state}</div>
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.district')}:</div>
-                      <div className="text-gray-700">{price.district}</div>
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.market')}:</div>
-                      <div className="text-gray-700">{price.market}</div>
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.commodity')}:</div>
-                      <div className="text-gray-700">{price.commodity}</div>
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.variety')}:</div>
-                      <div className="text-gray-700">{price.variety}</div>
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.minPrice')}:</div>
-                      <div className="text-gray-700">₹{price.min_price}</div>
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.maxPrice')}:</div>
-                      <div className="text-gray-700">₹{price.max_price}</div>
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.modalPrice')}:</div>
-                      <div className="text-gray-700">₹{price.modal_price}</div>
-                      <div className="font-semibold text-gray-700">{t('priceTransparency.date')}:</div>
-                      <div className="text-gray-700">{price.date}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
         </div>
+
+        {/* Filters */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <select
+            value={state}
+            onChange={e => setState(e.target.value)}
+            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          >
+            <option value="">{t('priceTransparency.selectState') || 'All States'}</option>
+            {states.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+
+          <select
+            value={commodity}
+            onChange={e => setCommodity(e.target.value)}
+            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          >
+            <option value="">{t('priceTransparency.selectCommodity') || 'All Commodities'}</option>
+            {commodities.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder={t('priceTransparency.searchPlaceholder') || 'Search market, variety...'}
+            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+
+        {/* Status */}
+        {lastFetched && (
+          <p className={`text-sm mb-4 ${isOutdated ? 'text-amber-700' : 'text-gray-600'}`}>
+            {t('priceTransparency.lastUpdated') || 'Last updated'}: {lastFetched.toLocaleString()}
+            {isOutdated && ` • ${t('priceTransparency.outdated') || 'data may be outdated'}`}
+          </p>
+        )}
+
+        {/* Loading / Error */}
+        {loading && (
+          <div className="flex justify-center my-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green-600"></div>
+          </div>
+        )}
+
+        {error && (
+          <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-r">
+            <p className="text-red-700">{error}</p>
+          </div>
+        )}
+
+        {/* Content */}
+        {!loading && !error && sorted.length === 0 ? (
+          <div className="text-center py-12 text-gray-500">
+            {t('priceTransparency.noData') || 'No prices found for current filters'}
+          </div>
+        ) : (
+          <div className="bg-white shadow-md rounded-xl overflow-hidden">
+            {/* Desktop / Tablet Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    {[
+                      { key: 'state', label: t('priceTransparency.state') },
+                      { key: 'district', label: t('priceTransparency.district') },
+                      { key: 'market', label: t('priceTransparency.market') },
+                      { key: 'commodity', label: t('priceTransparency.commodity') },
+                      { key: 'variety', label: t('priceTransparency.variety') },
+                      { key: 'min_price', label: t('priceTransparency.minPrice'), numeric: true },
+                      { key: 'max_price', label: t('priceTransparency.maxPrice'), numeric: true },
+                      { key: 'modal_price', label: t('priceTransparency.modalPrice'), numeric: true },
+                      { key: 'date', label: t('priceTransparency.date') },
+                    ].map(col => (
+                      <th
+                        key={col.key}
+                        onClick={() => toggleSort(col.key)}
+                        className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none"
+                      >
+                        <div className="flex items-center gap-1">
+                          {col.label}
+                          {sortConfig.key === col.key && (
+                            <span className="text-green-600">
+                              {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                            </span>
+                          )}
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 bg-white">
+                  {sorted.map((p, i) => (
+                    <tr key={i} className="hover:bg-green-50/30 transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{p.state}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{p.district}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{p.market}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{p.commodity}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{p.variety}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">₹{p.min_price}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">₹{p.max_price}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-green-700">₹{p.modal_price}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {new Date(p.date).toLocaleDateString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Cards */}
+            <div className="md:hidden space-y-4 px-4">
+              {sorted.map((p, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+                    <div className="font-medium text-gray-700">{t('priceTransparency.commodity')}:</div>
+                    <div className="font-semibold text-gray-900">{p.commodity}</div>
+
+                    <div className="font-medium text-gray-700">{t('priceTransparency.state')}:</div>
+                    <div>{p.state}</div>
+
+                    <div className="font-medium text-gray-700">{t('priceTransparency.market')}:</div>
+                    <div>{p.market}</div>
+
+                    <div className="font-medium text-gray-700">{t('priceTransparency.variety')}:</div>
+                    <div>{p.variety}</div>
+
+                    <div className="font-medium text-gray-700">{t('priceTransparency.minPrice')}:</div>
+                    <div>₹{p.min_price}</div>
+
+                    <div className="font-medium text-gray-700">{t('priceTransparency.maxPrice')}:</div>
+                    <div>₹{p.max_price}</div>
+
+                    <div className="font-medium text-gray-700">{t('priceTransparency.modalPrice')}:</div>
+                    <div className="font-bold text-green-700">₹{p.modal_price}</div>
+
+                    <div className="font-medium text-gray-700">{t('priceTransparency.date')}:</div>
+                    <div>{new Date(p.date).toLocaleDateString()}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
