@@ -9,11 +9,11 @@ import { getListings, getOrders, deleteListing, acceptOrder, rejectOrder , getEa
   getAddressFromLatLng} from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import ProfileSection from '../components/ProfileSection';
-import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 import { useTranslation } from 'react-i18next';
 import '../utils/i18n';
 import backgroundImage from '../assets/12.jpg';
+import FarmerInvestmentTab from '../components/FarmerInvestmentTab';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
@@ -606,77 +606,11 @@ const FarmerDashboard = ({ user }) => {
           )}
         </section>
 
-        {/* Earnings Dashboard */}
-        <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '200ms' }}>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{t('earningsDashboard')}</h3>
-          
-          <p className="text-base sm:text-lg font-medium text-yellow-200 mb-4">
-            <strong>{t('totalOrderAmount')}:</strong> ₹{earnings.totalOrderAmount}
-          </p>
-          <div className="mt-4">
-            <h4 className="text-base sm:text-lg font-semibold text-white">{t('weeklyEarnings')}</h4>
-            <div className="bg-white/10 p-3 sm:p-4 rounded-lg h-48 sm:h-64">
-              <Line data={chartData(earnings.weeklyEarnings, t('earnings'))} options={chartOptions} />
-            </div>
-          </div>
-          <div className="mt-4">
-            <h4 className="text-base sm:text-lg font-semibold text-white">{t('monthlyEarnings')}</h4>
-            <div className="bg-white/10 p-3 sm:p-4 rounded-lg h-48 sm:h-64">
-              <Line data={chartData(earnings.monthlyEarnings, t('earnings'))} options={chartOptions} />
-            </div>
-          </div>
-        </div>
-
-        {/* UPI Linking & Withdrawal */}
-        <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '300ms' }}>
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{t('withdrawFunds')}</h3>
-          <form onSubmit={handleUpiSubmit} className="space-y-4 mb-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder={t('enterUpiId')}
-                value={upiId}
-                onChange={(e) => setUpiId(e.target.value)}
-                className="w-full p-3 sm:p-4 bg-white/10 text-white placeholder-transparent rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-300 border-none backdrop-blur-lg transition-all duration-300 focus:shadow-[0_0_15px_rgba(234,179,8,0.5)] text-sm sm:text-base peer"
-                required
-                aria-label={t('enterUpiId')}
-              />
-              <label className="absolute left-3 -top-2 text-yellow-200 text-xs sm:text-sm transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-300 peer-focus:-top-2 peer-focus:text-yellow-200 peer-focus:text-xs">
-                {t('enterUpiId')}
-              </label>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-linear-to-r from-blue-600 to-green-600 text-white p-3 sm:p-4 rounded-lg shadow-lg hover:from-blue-700 hover:to-green-700 focus:ring-2 focus:ring-yellow-300 transition-all duration-300 transform hover:scale-105 relative overflow-hidden group text-sm sm:text-base"
-            >
-              <span className="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300 origin-center rounded-full"></span>
-              <span className="relative">{t('linkUpi')}</span>
-            </button>
-          </form>
-          <form onSubmit={handleWithdrawalSubmit} className="space-y-4">
-            <div className="relative">
-              <input
-                type="number"
-                placeholder={t('enterAmount')}
-                value={withdrawalAmount}
-                onChange={(e) => setWithdrawalAmount(e.target.value)}
-                className="w-full p-3 sm:p-4 bg-white/10 text-white placeholder-transparent rounded-lg shadow-sm focus:ring-2 focus:ring-yellow-300 border-none backdrop-blur-lg transition-all duration-300 focus:shadow-[0_0_15px_rgba(234,179,8,0.5)] text-sm sm:text-base peer"
-                required
-                aria-label={t('enterAmount')}
-              />
-              <label className="absolute left-3 -top-2 text-yellow-200 text-xs sm:text-sm transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-300 peer-focus:-top-2 peer-focus:text-yellow-200 peer-focus:text-xs">
-                {t('enterAmount')}
-              </label>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-linear-to-r from-green-600 to-yellow-600 text-white p-3 sm:p-4 rounded-lg shadow-lg hover:from-green-700 hover:to-yellow-700 focus:ring-2 focus:ring-yellow-300 transition-all duration-300 transform hover:scale-105 relative overflow-hidden group text-sm sm:text-base"
-            >
-              <span className="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300 origin-center rounded-full"></span>
-              <span className="relative">{t('requestWithdrawal')}</span>
-            </button>
-          </form>
-        </div>
+        {/* ========================================================= */}
+        {/* NEW FEATURE INTEGRATION (FARMER DASHBOARD)                */}
+        <FarmerInvestmentTab />
+        {/* Render your <JourneyManagementTracker /> component here     */}
+        {/* ========================================================= */}
 
         {/* Listings Section */}
         <div className="backdrop-blur-2xl bg-linear-to-br from-green-500/20 to-blue-500/20 rounded-2xl p-4 sm:p-5 lg:p-6 mb-8 sm:mb-10 lg:mb-12 shadow-2xl border border-green-300/30 transform transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] animate-slideUp hover:bg-green-500/30" style={{ animationDelay: '400ms' }}>

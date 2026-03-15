@@ -137,6 +137,7 @@ import React, { useState, useEffect } from 'react';
 import { getOrders, getRentals } from '../utils/api';
 import ProfileSection from '../components/ProfileSection';
 import { useTranslation } from 'react-i18next';
+import ConsumerInvestmentTab from '../components/ConsumerInvestmentTab';
 
 const ConsumerDashboard = ({ user }) => {
   const { t, i18n } = useTranslation();
@@ -201,6 +202,9 @@ const ConsumerDashboard = ({ user }) => {
                   {order.status === 'rejected' && order.rejectionMessage && (
                     <p className="mt-2 text-red-300">Reason: {order.rejectionMessage}</p>
                   )}
+                  {/* NEW FEATURE: Farm-to-Plate Journey Tracker */}
+                  {/* <TrackFarmJourneyButton orderId={order._id} /> */}
+                  {/* <FarmJourneyTimeline journeyData={journeyData} /> */}
                 </div>
               ))}
             </div>
@@ -234,6 +238,10 @@ const ConsumerDashboard = ({ user }) => {
             </div>
           )}
         </section>
+
+        {/* NEW FEATURE: Community Investment Farming */}
+        <ConsumerInvestmentTab />
+
       </div>
     </div>
   );

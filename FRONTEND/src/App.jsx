@@ -23,9 +23,10 @@ import Equipment from './pages/Equipment';
 import Chatbot from './pages/Chatbot';
 import CropDieases from './components/CropDieases';
 import About from './pages/About';
+import Investments from './pages/Investments';
+
 const App = () => {
   const [user, setUser] = useState(null);
-
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (token) {
@@ -74,6 +75,7 @@ const App = () => {
           <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/crop-diseases" element={<CropDieases />} />
           <Route path="/about" element={<About />} />
+          <Route path="/investments" element={<Investments user={user} />} />
           <Route 
   path="/equipment" 
   element={

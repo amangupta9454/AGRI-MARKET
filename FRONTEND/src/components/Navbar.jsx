@@ -257,6 +257,7 @@ const Navbar = ({ user, setUser }) => {
   ];
 
   const otherLinks = [
+    { to: '/investments', label: 'Invest' },
     { to: '/product', label: 'Products' },
     { to: '/equipment', label: 'Equipment' },
     { to: '/contact', label: 'Contact' },

@@ -4,6 +4,7 @@ import { getAnalytics, getRecentListings } from '../utils/api';
 import AnalyticsCard from '../components/AnalyticsCard';
 import UserManagement from '../components/UserManagement';
 import backgroundImage from '../assets/8.jpg';
+import AdminInvestmentApproval from '../components/AdminInvestmentApproval';
 
 const AdminDashboard = () => {
   const [analytics, setAnalytics] = useState({ farmers: 0, consumers: 0, listings: 0 });
@@ -119,6 +120,13 @@ const AdminDashboard = () => {
             <div className="bg-black/40 backdrop-blur-xl rounded-3xl shadow-2xl p-4 sm:p-6 transform hover:scale-[1.02] transition-all duration-500 border border-cyan-400/30 animate-slideInUp">
               <UserManagement token={token} />
             </div>
+
+            {/* ========================================================= */}
+            {/* NEW FEATURE INTEGRATION (ADMIN DASHBOARD)                 */}
+            <AdminInvestmentApproval token={token} />
+            {/* Render your <AdminJourneyMonitoring /> component here     */}
+            {/* ========================================================= */}
+
           </>
         )}
       </div>

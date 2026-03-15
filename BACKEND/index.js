@@ -12,6 +12,8 @@ const orderRoutes = require('./routes/orders');
 const adminRoutes = require('./routes/admin');
 const priceRoutes = require('./routes/prices');
 const cron = require('./cronJob');
+const investmentRoutes = require('./routes/investmentRoutes');  // NEW FEATURE: Investments
+const journeyRoutes = require('./routes/journeyRoutes');        // NEW FEATURE: Journey Tracker
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.use('/api/listings', listingRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/prices', priceRoutes);
+app.use('/api/investments', investmentRoutes); // NEW FEATURE: Investments
+app.use('/api/journey', journeyRoutes);       // NEW FEATURE: Journey Tracker
 app.get("/", (req, res) => {
   res.send({"msg": "BACKEND HOSTED SUCCESSFULLY"});
 });
