@@ -27,7 +27,7 @@ const createEquipment = async (req, res) => {
       name,
       charge,
       rentalType,
-      location: coordinates ? { coordinates: JSON.parse(coordinates) } : undefined,
+      location: coordinates ? { type: 'Point', coordinates: JSON.parse(coordinates) } : undefined,
       locationName,
       image: imageUrl,
       farmer: req.user.id,

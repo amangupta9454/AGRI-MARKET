@@ -4,8 +4,8 @@ const EquipmentSchema = new mongoose.Schema({
   charge: { type: Number, required: true },
   rentalType: { type: String, enum: ['hourly', 'daily'], required: true },
   location: {
-    type: { type: String, default: 'Point' },
-    coordinates: [Number],
+    type: { type: String, enum: ['Point'] },
+    coordinates: { type: [Number] },
   },
   locationName: { type: String, required: true },
   image: { type: String },

@@ -1,4 +1,4 @@
-<h1 align="center" style="color:#4CAF50; font-size: 40px;">🌾 AGRI - Smart Farming Marketplace</h1>
+<h1 align="center" style="color:#4CAF50; font-size: 40px;">🌾 AGRI Farmio - Smart Farming Marketplace</h1>
 <h3 align="center" style="color:gray;">Connecting Farmers & Consumers through a Transparent, Tech-Driven Platform</h3>
 
 <p align="center" style="font-size: 16px;">
