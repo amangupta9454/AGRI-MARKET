@@ -121,7 +121,6 @@ AGRI-FARMIO
 │   ├── routes
 │   │   ├── admin.js
 │   │   ├── equipments.js
-│   │   ├── geocode.js
 │   │   ├── listings.js
 │   │   ├── orders.js
 │   │   ├── prices.js
